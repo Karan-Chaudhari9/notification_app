@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:rive/rive.dart';
 
 void main() {
   runApp(
@@ -14,15 +15,13 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        alignment: Alignment.center,
-        child: const Text(
-            'Hello World!',
-        style: TextStyle(
-          fontSize: 38
+      body: Center(
+        child: Column(
+          children: [
+            RiveAnimation.network("https://public.rive.app/community/runtime-files/809-1634-rocket-demo.riv")
+          ],
         ),
-        ),
-      ),
+      )
     );
   }
 }
