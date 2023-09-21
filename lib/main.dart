@@ -39,6 +39,7 @@ class _HomePageViewState extends State<HomePageView> {
                 Align(
                   alignment: Alignment.topLeft,
                   child: Text(
+
                     'Find the',
                     style: TextStyle(
                         fontSize: 40
