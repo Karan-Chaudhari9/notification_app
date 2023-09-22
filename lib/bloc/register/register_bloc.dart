@@ -1,11 +1,13 @@
 import 'dart:async';
-import 'dart:developer' as dev;
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 
+
+import 'dart:developer' as dev;
+
 import '../../common/validators.dart';
-import '../../repository/auth_repository.dart';
+import '../../repository/auth_reposository.dart';
 
 part 'register_event.dart';
 part 'register_state.dart';
@@ -26,19 +28,16 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
   }
 
   void _onPasswordChanged(PasswordChanged event, Emitter<RegisterState> emit) {
-    emit(state.update(
-        isPasswordValid: Validators.isValidPassword(event.password)));
+    emit(state.update(isPasswordValid: Validators.isValidPassword(event.password)));
   }
 
-  Future<void> _onSubmitted(
-      Submitted event, Emitter<RegisterState> emit) async {
+  Future<void> _onSubmitted(Submitted event, Emitter<RegisterState> emit) async {
     emit(RegisterState.loading());
     try {
       dev.log('Signing up from repository', name: 'Register');
-      await _authRepository.signUp(
-          email: event.email, password: event.password);
+      await _authRepository.signUp(email: event.email, password: event.password);
       emit(RegisterState.success());
-    } catch (_) {
+    }catch(_) {
       emit(RegisterState.failure());
     }
   }

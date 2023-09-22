@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../bloc/auth/auth_bloc.dart';
 
+
 class AuthScreen extends StatelessWidget {
   const AuthScreen({Key? key}) : super(key: key);
 

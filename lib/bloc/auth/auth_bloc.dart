@@ -4,9 +4,10 @@ import 'dart:developer' as dev;
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 
-import '../../repository/auth_repository.dart';
+import '../../repository/auth_reposository.dart';
 
 part 'auth_event.dart';
+
 part 'auth_state.dart';
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
