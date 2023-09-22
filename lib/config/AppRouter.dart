@@ -14,7 +14,7 @@ class AppRouter {
       case LogInScreen.routeName:
         return LogInScreen.route();
       case RegisterScreenView.routeName:
-        return RegisterScreenView.route()
+        return RegisterScreenView.route();
       case AuthScreen.routeName:
         return AuthScreen.route();
       default:
