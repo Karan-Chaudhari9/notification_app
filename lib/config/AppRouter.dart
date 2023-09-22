@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:notification_app/screens/auth_screen.dart';
 import 'package:notification_app/screens/login_screen.dart';
@@ -14,7 +13,7 @@ class AppRouter {
       case LogInScreen.routeName:
         return LogInScreen.route();
       case RegisterScreenView.routeName:
-        return RegisterScreenView.route()
+        return RegisterScreenView.route();
       case AuthScreen.routeName:
         return AuthScreen.route();
       default:
@@ -24,8 +23,10 @@ class AppRouter {
 
   static Route _errorRoute() {
     return MaterialPageRoute(
-        settings: RouteSettings(name: '/error'),
-        builder: (_) => Scaffold(appBar: AppBar(title: Text('Error'),))
-    );
+        settings: const RouteSettings(name: '/error'),
+        builder: (_) => Scaffold(
+                appBar: AppBar(
+              title: const Text('Error'),
+            )));
   }
 }
