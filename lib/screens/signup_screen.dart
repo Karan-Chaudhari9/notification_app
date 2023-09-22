@@ -1,9 +1,39 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-class SignupPage extends StatelessWidget {
+
+class RegisterScreenView extends StatefulWidget {
+  const RegisterScreenView({super.key});
+
+  static const routeName = 'register';
+
+  static Route route() {
+    return MaterialPageRoute(
+      settings: const RouteSettings(name: routeName),
+      builder: (_) => const SignupPage(),
+    );
+  }
+
+  @override
+  State<RegisterScreenView> createState() => _RegisterScreenViewState();
+}
+
+class _RegisterScreenViewState extends State<RegisterScreenView> {
+  @override
+  Widget build(BuildContext context) {
+    return const SignupPage();
+  }
+}
+
+
+class SignupPage extends StatefulWidget {
   const SignupPage({super.key});
 
+  @override
+  State<SignupPage> createState() => _SignupPageState();
+}
+
+class _SignupPageState extends State<SignupPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
