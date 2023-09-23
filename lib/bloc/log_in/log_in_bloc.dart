@@ -4,7 +4,7 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 
 import '../../common/validators.dart';
-import '../../repository/auth_repository.dart';
+import '../../repository/auth_reposository.dart';
 
 part 'log_in_event.dart';
 part 'log_in_state.dart';

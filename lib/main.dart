@@ -1,7 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:notification_app/repository/auth_repository.dart';
+import 'package:notification_app/repository/auth_reposository.dart';
 import 'package:notification_app/screens/splash_screen.dart';
 
 import 'bloc/auth/auth_bloc.dart';
