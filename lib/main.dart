@@ -12,7 +12,6 @@ import 'package:notification_app/screens/splash_screen.dart';
 
 import 'bloc/auth/auth_bloc.dart';
 import 'bloc/log_in/log_in_bloc.dart';
-import 'config/AppRouter.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -67,12 +66,7 @@ class MyApp extends StatelessWidget {
       child: MaterialApp.router(
         title: 'Event Management App',
         theme: ThemeData(useMaterial3: true),
-<<<<<<< Updated upstream
-        onGenerateRoute: AppRouter.onGenerateRoute,
-        initialRoute: SplashScreen.routeName,
-=======
         routerConfig: router,
->>>>>>> Stashed changes
       ),
     );
   }

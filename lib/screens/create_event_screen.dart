@@ -41,7 +41,7 @@ class _CreateEventState extends State<CreateEvent> {
         systemOverlayStyle: SystemUiOverlayStyle.dark,
       ),
       body: ListView(
-        padding: const EdgeInsets.only(left: 25),
+        padding: const EdgeInsets.symmetric(horizontal: 15),
         children: [
           const Text(
             'Create Event',
@@ -57,11 +57,8 @@ class _CreateEventState extends State<CreateEvent> {
             'Event Title',
             style: TextStyle(fontSize: 20, fontWeight: FontWeight.w400),
           ),
-          const Padding(
-            padding: EdgeInsets.only(right: 25),
-            child: TextField(
-              decoration: InputDecoration(hintText: "e.g. Tech Event"),
-            ),
+          const TextField(
+            decoration: InputDecoration(hintText: "e.g. Tech Event"),
           ),
           const SizedBox(
             height: 20,
@@ -73,62 +70,57 @@ class _CreateEventState extends State<CreateEvent> {
           const SizedBox(
             height: 12.0,
           ),
-          Padding(
-            padding: const EdgeInsets.only(right: 25.0),
-            child: SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: <Widget>[
-                  Column(
-                    children: [
-                      const Padding(
-                        padding: EdgeInsets.only(right: 185, bottom: 5),
-                        child: Text('Thumbnail'),
+          SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: <Widget>[
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text('Thumbnail'),
+                    Container(
+                      height: 170,
+                      width: 250,
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        border: Border.all(color: Colors.black),
                       ),
-                      Container(
-                        height: 170,
-                        width: 250,
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          border: Border.all(color: Colors.black),
-                        ),
-                        child: Center(
-                          child: IconButton(
-                            onPressed: () {},
-                            icon: const Icon(Icons.add),
-                          ),
+                      child: Center(
+                        child: IconButton(
+                          onPressed: () {},
+                          icon: const Icon(Icons.add),
                         ),
                       ),
-                    ],
-                  ),
-                  const SizedBox(
-                    width: 15,
-                  ),
-                  Column(
-                    children: [
-                      const Padding(
-                        padding: EdgeInsets.only(right: 185, bottom: 5),
-                        child: Text('Past Event'),
+                    ),
+                  ],
+                ),
+                const SizedBox(
+                  width: 15,
+                ),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text('Past Event'),
+                    Container(
+                      height: 170,
+                      width: 250,
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        border: Border.all(color: Colors.black),
                       ),
-                      Container(
-                        height: 170,
-                        width: 250,
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          border: Border.all(color: Colors.black),
-                        ),
-                        child: Center(
-                          child: IconButton(
-                            onPressed: () {},
-                            icon: const Icon(Icons.add),
-                          ),
+                      child: Center(
+                        child: IconButton(
+                          onPressed: () {},
+                          icon: const Icon(Icons.add),
                         ),
                       ),
-                    ],
-                  ),
-                ],
-              ),
+                    ),
+                  ],
+                ),
+              ],
             ),
           ),
           const SizedBox(
@@ -138,15 +130,12 @@ class _CreateEventState extends State<CreateEvent> {
             'Event Details',
             style: TextStyle(fontSize: 20, fontWeight: FontWeight.w400),
           ),
-          const Padding(
-            padding: EdgeInsets.only(right: 25),
-            child: TextField(
-              decoration: InputDecoration(
-                hintText: "Event Description",
-              ),
-              maxLength: 300,
-              maxLengthEnforcement: MaxLengthEnforcement.enforced,
+          const TextField(
+            decoration: InputDecoration(
+              hintText: "Event Description",
             ),
+            maxLength: 300,
+            maxLengthEnforcement: MaxLengthEnforcement.enforced,
           ),
           const SizedBox(
             height: 10,
@@ -177,23 +166,17 @@ class _CreateEventState extends State<CreateEvent> {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               Expanded(
-                child: Padding(
-                  padding: EdgeInsets.only(right: 25),
-                  child: TextField(
-                    decoration: InputDecoration(
-                        icon: Icon(Icons.calendar_month_outlined),
-                        hintText: "DD/MM/YYYY"),
-                  ),
+                child: TextField(
+                  decoration: InputDecoration(
+                      icon: Icon(Icons.calendar_month_outlined),
+                      hintText: "DD/MM/YYYY"),
                 ),
               ),
               Expanded(
-                child: Padding(
-                  padding: EdgeInsets.only(right: 25),
-                  child: TextField(
-                    decoration: InputDecoration(
-                      icon: Icon(Icons.access_time_filled),
-                      hintText: "10:10",
-                    ),
+                child: TextField(
+                  decoration: InputDecoration(
+                    icon: Icon(Icons.access_time_filled),
+                    hintText: "10:10",
                   ),
                 ),
               )
@@ -210,13 +193,10 @@ class _CreateEventState extends State<CreateEvent> {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               Expanded(
-                child: Padding(
-                  padding: EdgeInsets.only(right: 25),
-                  child: TextField(
-                    decoration: InputDecoration(
-                        icon: Icon(Icons.calendar_month_outlined),
-                        hintText: "DD/MM/YYYY"),
-                  ),
+                child: TextField(
+                  decoration: InputDecoration(
+                      icon: Icon(Icons.calendar_month_outlined),
+                      hintText: "DD/MM/YYYY"),
                 ),
               ),
               Expanded(
