@@ -53,7 +53,6 @@ class LogInWithGooglePressed extends LogInEvent {
 
 class LogInWithCredentialsPressed extends LogInEvent {
   LogInWithCredentialsPressed({required this.email, required this.password});
-
   final String email;
   final String password;
 

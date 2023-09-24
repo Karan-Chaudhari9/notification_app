@@ -28,19 +28,23 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
-  firebase_auth: ^3.11.2
-  firebase_core: ^1.13.1
-  flutter_bloc: ^8.0.1
   flutter:
     sdk: flutter
-
+  firebase_core:
+  cloud_firestore:
+  firebase_auth:
+  google_sign_in:
+  cupertino_icons:
+  carousel_slider:
+  equatable:
+  flutter_bloc:
+  bloc:
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
-  cupertino_icons: ^1.0.2
-  equatable: ^2.0.5
-  google_sign_in: ^6.1.5
-  hive: ^2.2.3
+  hive:
+  cloud_firestore_platform_interface:
+  go_router: ^11.0.0
 
 dev_dependencies:
   flutter_test:

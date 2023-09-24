@@ -5,15 +5,6 @@ import 'package:flutter/services.dart';
 class RegisterScreenView extends StatefulWidget {
   const RegisterScreenView({super.key});
 
-  static const routeName = 'register';
-
-  static Route route() {
-    return MaterialPageRoute(
-      settings: const RouteSettings(name: routeName),
-      builder: (_) => const SignupPage(),
-    );
-  }
-
   @override
   State<RegisterScreenView> createState() => _RegisterScreenViewState();
 }

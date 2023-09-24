@@ -45,7 +45,8 @@ class LogInBloc extends Bloc<LogInEvent, LogInState> {
     try {
       await _authRepository.signInWithCredentials(event.email, event.password);
       emit(LogInState.success());
-    } catch (_) {
+    } catch (e) {
+      print(e.toString());
       emit(LogInState.failure());
     }
   }

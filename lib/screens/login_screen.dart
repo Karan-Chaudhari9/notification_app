@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:notification_app/screens/signup_screen.dart';
@@ -8,14 +10,6 @@ import '../bloc/log_in/log_in_bloc.dart';
 class LogInScreen extends StatefulWidget {
   const LogInScreen({Key? key}) : super(key: key);
 
-  static const routeName = 'login';
-
-  static Route route() {
-    return MaterialPageRoute(
-      settings: const RouteSettings(name: routeName),
-      builder: (_) => const LogInScreen(),
-    );
-  }
 
   @override
   State<LogInScreen> createState() => _LogInScreenState();
@@ -39,30 +33,6 @@ class _LogInScreenState extends State<LogInScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        title: Padding(
-          padding: const EdgeInsets.symmetric(
-            horizontal: 20,
-          ),
-          child: Container(
-            alignment: Alignment.center,
-            color: Colors.black,
-            padding: const EdgeInsets.symmetric(
-              horizontal: 50,
-              vertical: 10,
-            ),
-            child: Text(
-              'Log In',
-              style: Theme.of(context)
-                  .textTheme
-                  .displayMedium!
-                  .copyWith(color: Colors.white),
-            ),
-          ),
-        ),
-      ),
       body: BlocListener<LogInBloc, LogInState>(
         bloc: BlocProvider.of<LogInBloc>(context),
         listener: (context, state) {
@@ -75,7 +45,7 @@ class _LogInScreenState extends State<LogInScreen> {
                   content: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text('Log In failure'),
+                      Text('something went wrong.!'),
                       Icon(Icons.error),
                     ],
                   ),
@@ -106,6 +76,7 @@ class _LogInScreenState extends State<LogInScreen> {
             return Container(
               margin: const EdgeInsets.only(top: 50),
               color: Colors.grey.shade300,
+<<<<<<< Updated upstream
               child: Stack(
                 children: [
                   Scaffold(
@@ -217,14 +188,111 @@ class _LogInScreenState extends State<LogInScreen> {
                                     color: Color.fromARGB(255, 29, 39, 157),
                                     fontWeight: FontWeight.w500,
                                     decoration: TextDecoration.underline),
+=======
+              child: Scaffold(
+                resizeToAvoidBottomInset: false,
+                body: ListView(
+                  children: [
+                    SizedBox(
+                      width: 100,
+                      height: 150,
+                      child: Image.asset('assets/images/Atmiya_Logo.png'),
+                    ),
+                    // const SizedBox(height: 20,),
+                    Container(
+                      margin: const EdgeInsets.all(8.0),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10.0),
+                      ),
+                      padding: const EdgeInsets.all(16.0),
+                      child: Column(
+                        children: [
+                          const Text(
+                            'नमस्कारः',
+                            style: TextStyle(
+                                fontWeight: FontWeight.w700, fontSize: 32),
+                          ),
+                          const Text(
+                            'Sign in your account',
+                            style: TextStyle(
+                              fontWeight: FontWeight.w400,
+                              fontSize: 25,
+                            ),
+                          ),
+                          const SizedBox(height: 30.0),
+                          TextFormField(
+                            controller: emailController,
+                            decoration: const InputDecoration(
+                              border: OutlineInputBorder(),
+                              labelText: 'Email',
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          TextFormField(
+                            obscureText: true,
+                            controller: passwordController,
+                            decoration: InputDecoration(
+                              border: OutlineInputBorder(),
+                              labelText: 'Password',
+                            ),
+                          ),
+                          const SizedBox(height: 10.0),
+                          const Align(
+                            alignment: Alignment.centerRight,
+                            child: Text(
+                              'Forgot your Password?',
+                            ),
+                          ),
+                          const SizedBox(height: 10.0),
+                          SizedBox(
+                            width: 150,
+                            child: MaterialButton(
+                              onPressed: _onFormSubmitted,
+                              child: Text(
+                                "Login",
+                                style: TextStyle(color: Colors.white),
+                              ),
+                              color: Colors.redAccent,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.all(
+                                  Radius.circular(50),
+                                ),
+>>>>>>> Stashed changes
                               ),
                             ),
-                          ],
-                        )
-                      ],
+                          )
+                        ],
+                      ),
                     ),
-                  ),
-                ],
+                    const SizedBox(height: 10.0),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Text("Don't have an account?"),
+                        const SizedBox(
+                          width: 10.0,
+                        ),
+                        TextButton(
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => const SignupPage()));
+                          },
+                          child: const Text(
+                            'Register Now',
+                            style: TextStyle(
+                                color: Color.fromARGB(255, 29, 39, 157),
+                                fontWeight: FontWeight.w500,
+                                decoration: TextDecoration.underline),
+                          ),
+                        ),
+                      ],
+                    )
+                  ],
+                ),
               ),
             );
           },
@@ -234,6 +302,7 @@ class _LogInScreenState extends State<LogInScreen> {
   }
 
   void _onEmailChanged() {
+    print(emailController.text);
     _logInBloc.add(EmailChanged(email: emailController.text));
   }
 
@@ -242,6 +311,8 @@ class _LogInScreenState extends State<LogInScreen> {
   }
 
   void _onFormSubmitted() {
+    print(emailController.text);
+    print(passwordController.text);
     _logInBloc.add(LogInWithCredentialsPressed(
         email: emailController.text, password: passwordController.text));
   }
