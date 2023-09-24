@@ -9,8 +9,23 @@ void main() {
   );
 }
 
+<<<<<<< Updated upstream
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
+=======
+final GoRouter _router = GoRouter(
+  initialLocation: '/splash',
+  debugLogDiagnostics: true,
+      routes: <RouteBase>[
+        GoRoute(path: '/base', builder: (context, state) => MyApp()),
+        GoRoute(path: '/home', builder: (context, state) => HomeScreen()),
+        GoRoute(path: '/splash', builder: (context, state) => SplashScreen()),
+        GoRoute(path: '/auth', builder: (context, state) => AuthScreen()),
+        GoRoute(path: '/login',builder: (context, state) => LogInScreen()),
+        GoRoute(path: '/register',builder: (context, state) => RegisterScreenView()),
+      ],
+);
+>>>>>>> Stashed changes
 
   @override
   Widget build(BuildContext context) {
