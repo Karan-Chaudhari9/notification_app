@@ -24,7 +24,6 @@ class Authenticated extends AuthState {
     return 'AuthenticatedState';
   }
 }
-
 class UnAuthenticated extends AuthState {
   @override
   String toString() {

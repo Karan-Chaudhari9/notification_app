@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:go_router/go_router.dart';
 
 
 class RegisterScreenView extends StatefulWidget {
@@ -109,7 +110,7 @@ class _SignupPageState extends State<SignupPage> {
                         const Text("Already have an account? "),
                         TextButton(
                           onPressed: () {
-                            Navigator.pop(context);
+                            context.go('/login');
                           },
                           child: const Text("Login",style: TextStyle(
                               fontWeight: FontWeight.w600,

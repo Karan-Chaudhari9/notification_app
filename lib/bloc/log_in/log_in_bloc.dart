@@ -2,11 +2,15 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:notification_app/bloc/auth/auth_bloc.dart';
 
 import '../../config/validators.dart';
 import '../../repository/auth_reposository.dart';
+import 'dart:developer' as dev;
 
 part 'log_in_event.dart';
+
 part 'log_in_state.dart';
 
 class LogInBloc extends Bloc<LogInEvent, LogInState> {
@@ -30,24 +34,28 @@ class LogInBloc extends Bloc<LogInEvent, LogInState> {
         isPasswordValid: Validators.isValidPassword(event.password)));
   }
 
-  Future<void> _onLogInWithGooglePressed(
-      LogInWithGooglePressed event, Emitter<LogInState> emit) async {
+  Future<void> _onLogInWithGooglePressed(LogInWithGooglePressed event,
+      Emitter<LogInState> emit) async {
     try {
       await _authRepository.signInWithGoogle();
       emit(LogInState.success());
-    } catch (_) {
-      emit(LogInState.failure());
+    } on FirebaseAuthException catch (e) {
+      emit(LogInState.failure(error: "error"));
+      dev.log(e.code, name: "FirebaseAuthException");
+    } catch (e) {
+      dev.log(e.toString(), name: "Firebase Cathch");
     }
   }
 
-  Future<void> _onLogInWithCredentialPressed(
-      LogInWithCredentialsPressed event, Emitter<LogInState> emit) async {
+  Future<void> _onLogInWithCredentialPressed(LogInWithCredentialsPressed event,
+      Emitter<LogInState> emit) async {
     try {
       await _authRepository.signInWithCredentials(event.email, event.password);
       emit(LogInState.success());
+    } on FirebaseAuthException catch (e) {
+      emit(LogInState.failure(error: e.message.toString()));
     } catch (e) {
-      print(e.toString());
-      emit(LogInState.failure());
+      emit(LogInState.failure(error: e.toString()));
     }
   }
 }

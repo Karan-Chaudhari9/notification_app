@@ -1,11 +1,15 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:go_router/go_router.dart';
+import 'package:notification_app/config/validators.dart';
 import 'package:notification_app/screens/signup_screen.dart';
 
 import '../bloc/auth/auth_bloc.dart';
 import '../bloc/log_in/log_in_bloc.dart';
 import 'dart:developer' as dev;
+
 class LogInScreen extends StatefulWidget {
   const LogInScreen({Key? key}) : super(key: key);
 
@@ -17,6 +21,8 @@ class _LogInScreenState extends State<LogInScreen> {
   final TextEditingController emailController = TextEditingController();
 
   final TextEditingController passwordController = TextEditingController();
+
+  final TextEditingController emailchangeController = TextEditingController();
 
   late LogInBloc _logInBloc;
 
@@ -35,21 +41,34 @@ class _LogInScreenState extends State<LogInScreen> {
       body: BlocListener<LogInBloc, LogInState>(
         bloc: BlocProvider.of<LogInBloc>(context),
         listener: (context, state) {
-          if (state.isFailure) {
-            ScaffoldMessenger.of(context)
-              ..hideCurrentSnackBar()
-              ..showSnackBar(
-                const SnackBar(
-                  backgroundColor: Colors.red,
-                  content: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text('Log In failure'),
-                      Icon(Icons.error),
-                    ],
+          Future<void> _showMyDialog({required String message}) async {
+            return showDialog<void>(
+              context: context,
+              barrierDismissible: false, // user must tap button!
+              builder: (BuildContext context) {
+                return AlertDialog(
+                  title: const Text('Error while login..'),
+                  content: SingleChildScrollView(
+                    child: ListBody(
+                      children: <Widget>[Text(message)],
+                    ),
                   ),
-                ),
-              );
+                  actions: <Widget>[
+                    TextButton(
+                      child: const Text('Okay'),
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                    ),
+                  ],
+                );
+              },
+            );
+          }
+
+          if (state.isFailure) {
+            print(state.message);
+            _showMyDialog(message: state.message);
           } else if (state.isSubmitting) {
             ScaffoldMessenger.of(context)
               ..hideCurrentSnackBar()
@@ -106,43 +125,37 @@ class _LogInScreenState extends State<LogInScreen> {
                               const Text(
                                 'Sign in your account',
                                 style: TextStyle(
-                                  fontWeight: FontWeight.w400,
+                                  fontWeight: FontWeight.w700,
                                   fontSize: 28,
                                 ),
                               ),
-                              const SizedBox(
-                                height: 30.0,
-                              ),
-                               TextFormField(
-                                 controller: emailController,
-                                decoration: InputDecoration(
+                              const SizedBox(height: 30.0),
+                              TextFormField(
+                                controller: emailController,
+                                decoration: const InputDecoration(
                                   border: OutlineInputBorder(),
                                   labelText: 'Email',
                                 ),
                               ),
-                              const SizedBox(
-                                height: 10,
-                              ),
+                              const SizedBox(height: 10),
                               TextFormField(
                                 controller: passwordController,
                                 obscureText: true,
-                                decoration: InputDecoration(
+                                decoration: const InputDecoration(
                                   border: OutlineInputBorder(),
                                   labelText: 'Password',
                                 ),
                               ),
-                              const SizedBox(
-                                height: 10.0,
-                              ),
-                              const Align(
+                               Align(
                                 alignment: Alignment.centerRight,
-                                child: Text(
-                                  'Forgot your Password?',
+                                child: TextButton(
+                                  child: Text('Forgot your Password?'),
+                                  onPressed: (){
+                                    pwdChange();
+                                  },
                                 ),
                               ),
-                              const SizedBox(
-                                height: 20.0,
-                              ),
+                              const SizedBox(height: 10.0),
                               SizedBox(
                                 height: 53,
                                 width: 120,
@@ -150,7 +163,7 @@ class _LogInScreenState extends State<LogInScreen> {
                                   minWidth: double.infinity,
                                   height: 60,
                                   onPressed: _onFormSubmitted,
-                                  color: Colors.redAccent,
+                                  color: Colors.blueAccent,
                                   shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(40)),
                                   child: const Text(
@@ -158,6 +171,7 @@ class _LogInScreenState extends State<LogInScreen> {
                                     style: TextStyle(
                                       fontWeight: FontWeight.w600,
                                       fontSize: 16,
+                                      color: Colors.white
                                     ),
                                   ),
                                 ),
@@ -165,23 +179,14 @@ class _LogInScreenState extends State<LogInScreen> {
                             ],
                           ),
                         ),
-                        const SizedBox(
-                          height: 10.0,
-                        ),
+                        const SizedBox(height: 10.0),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             const Text("Don't have an account?"),
-                            const SizedBox(
-                              width: 10.0,
-                            ),
                             TextButton(
                               onPressed: () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                        const SignupPage()));
+                                context.go('/register');
                               },
                               child: const Text(
                                 'Register Now',
@@ -227,5 +232,42 @@ class _LogInScreenState extends State<LogInScreen> {
     emailController.dispose();
     passwordController.dispose();
     super.dispose();
+  }
+
+  Future<void> pwdChange() async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Enter your emaill address'),
+          content: TextFormField(
+            controller: emailchangeController,
+            decoration: const InputDecoration(
+                label: Text("email"), border: OutlineInputBorder()),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('Reset'),
+              onPressed: () {
+                try{
+                  FirebaseAuth.instance.sendPasswordResetEmail(email: emailchangeController.text);
+                }catch(e){
+                  Fluttertoast.showToast(
+                    msg: e.toString()
+                  );
+                }
+              },
+            ),
+            TextButton(
+              child: const Text('Cancel'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
   }
 }

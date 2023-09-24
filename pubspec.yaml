@@ -45,6 +45,7 @@ dependencies:
   hive:
   cloud_firestore_platform_interface:
   go_router: ^11.0.0
+  fluttertoast: ^8.2.2
 
 dev_dependencies:
   flutter_test:

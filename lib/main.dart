@@ -31,7 +31,7 @@ final GoRouter _router = GoRouter(
         GoRoute(path: '/auth', builder: (context, state) => AuthScreen()),
         GoRoute(path: '/login',builder: (context, state) => LogInScreen()),
         GoRoute(path: '/register',builder: (context, state) => RegisterScreenView()),
-        GoRoute(path: '/newEvent',builder: (context, state) => Text(""),)
+        GoRoute(path: '/newEvent',builder: (context, state) => Text("")),
       ],
 );
 
@@ -58,7 +58,8 @@ class _MyAppState extends State<MyApp> {
       ],
       child: MaterialApp.router(
           title: 'Event Management App',
-          theme: ThemeData(useMaterial3: true),
+          theme: ThemeData(useMaterial3: true,brightness: Brightness.light),
+
           routerConfig: _router,
       ),
     );

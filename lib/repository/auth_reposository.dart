@@ -24,6 +24,11 @@ class AuthRepository {
     return _firebaseAuth.currentUser;
   }
 
+  Future<void> resetPassword({required String email}) async {
+    await _firebaseAuth
+        .sendPasswordResetEmail(email: email);
+  }
+
   Future<void> signInWithCredentials(String email, String password) {
     return _firebaseAuth.signInWithEmailAndPassword(
       email: email,

@@ -6,15 +6,17 @@ class LogInState {
   final bool isSubmitting;
   final bool isSuccess;
   final bool isFailure;
+  final String message;
 
   bool get isFormValid => isEmailValid && isPasswordValid;
 
-  LogInState({
+  LogInState( {
     required this.isEmailValid,
     required this.isPasswordValid,
     required this.isSubmitting,
     required this.isSuccess,
     required this.isFailure,
+    required this.message
   });
 
   factory LogInState.empty() {
@@ -24,6 +26,7 @@ class LogInState {
       isSubmitting: false,
       isSuccess: false,
       isFailure: false,
+      message: "Empyt"
     );
   }
 
@@ -34,17 +37,18 @@ class LogInState {
       isSubmitting: true,
       isSuccess: false,
       isFailure: false,
+      message: "loading"
     );
   }
 
-  factory LogInState.failure() {
+  factory LogInState.failure({required String error}) {
     return LogInState(
-      isEmailValid: true,
-      isPasswordValid: true,
-      isSubmitting: false,
-      isSuccess: false,
-      isFailure: true,
-    );
+        isEmailValid: true,
+        isPasswordValid: true,
+        isSubmitting: false,
+        isSuccess: false,
+        isFailure: true,
+        message: error);
   }
 
   factory LogInState.success() {
@@ -54,8 +58,10 @@ class LogInState {
       isSubmitting: false,
       isSuccess: true,
       isFailure: false,
+      message: "Sucess"
     );
   }
+
 
   LogInState update({
     bool? isEmailValid,
@@ -84,6 +90,7 @@ class LogInState {
       isSubmitting: isSubmitting ?? this.isSubmitting,
       isSuccess: isSuccess ?? this.isSuccess,
       isFailure: isFailure ?? this.isFailure,
+      message: message ?? this.message
     );
   }
 
