@@ -3,6 +3,7 @@ import 'dart:developer' as dev;
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:notification_app/screens/login_screen.dart';
 
 import '../bloc/auth/auth_bloc.dart';
 
@@ -20,21 +21,29 @@ class _AuthScreenState extends State<AuthScreen> {
     return BlocListener<AuthBloc, AuthState>(
       listener: (context, state) {
         if (state is Uninitialized) {
-          context.go("/home");
+          context.go("/login");
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const LogInScreen()),
+          );
           dev.log('Uninitialized State', name: 'AuthState');
         } else if (state is UnAuthenticated) {
-          Navigator.pushReplacementNamed(context, '/login');
-          print("Demo");
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const LogInScreen()),
+          );
+          dev.log('UnAuthenticated State', name: 'AuthState');
+          context.go('/login');
         } else if (state is Authenticated) {
           dev.log('Authenticated state in AuthScreen, Going home screen');
-          Navigator.pushReplacementNamed(context, '/home');
+          context.go("/home");
         } else {
           dev.log('Unknown state', name: 'AuthState');
         }
       },
       child: const Scaffold(
         body: Center(
-          child: CircularProgressIndicator(),
+          child: Text("Hello"),
         ),
       ),
     );

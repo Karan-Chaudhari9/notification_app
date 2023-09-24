@@ -13,7 +13,7 @@ import 'package:notification_app/screens/splash_screen.dart';
 import 'bloc/auth/auth_bloc.dart';
 import 'bloc/log_in/log_in_bloc.dart';
 
-Future<void> main() async {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
@@ -21,52 +21,45 @@ Future<void> main() async {
   runApp(const MyApp());
 }
 
-final GoRouter router = GoRouter(
-  routes: <RouteBase>[
-    GoRoute(
-      path: '/',
-      builder: (BuildContext context, GoRouterState state) => SplashScreen(),
+final GoRouter _router = GoRouter(
+  initialLocation: '/splash',
+  debugLogDiagnostics: true,
       routes: <RouteBase>[
-        GoRoute(
-            path: '/home',
-            builder: (BuildContext context, GoRouterState state) =>
-                HomeScreen()),
-        GoRoute(
-            path: '/login',
-            builder: (BuildContext context, GoRouterState state) =>
-                LogInScreen()),
-        GoRoute(
-            path: '/register',
-            builder: (BuildContext context, GoRouterState state) =>
-                RegisterScreenView()),
-        GoRoute(
-            path: '/auth',
-            builder: (BuildContext context, GoRouterState state) =>
-                AuthScreen()),
+        GoRoute(path: '/base', builder: (context, state) => MyApp()),
+        GoRoute(path: '/home', builder: (context, state) => HomeScreen()),
+        GoRoute(path: '/splash', builder: (context, state) => SplashScreen()),
+        GoRoute(path: '/auth', builder: (context, state) => AuthScreen()),
+        GoRoute(path: '/login',builder: (context, state) => LogInScreen()),
+        GoRoute(path: '/register',builder: (context, state) => RegisterScreenView()),
+        GoRoute(path: '/newEvent',builder: (context, state) => Text(""),)
       ],
-    ),
-  ],
 );
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
 
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
           create: (context) =>
-              AuthBloc(authRepository: AuthRepository())..add(AppStarted()),
+          AuthBloc(authRepository: AuthRepository())
+            ..add(AppStarted()),
         ),
         BlocProvider(
           create: (context) => LogInBloc(authRepository: AuthRepository()),
         ),
       ],
       child: MaterialApp.router(
-        title: 'Event Management App',
-        theme: ThemeData(useMaterial3: true),
-        routerConfig: router,
+          title: 'Event Management App',
+          theme: ThemeData(useMaterial3: true),
+          routerConfig: _router,
       ),
     );
   }

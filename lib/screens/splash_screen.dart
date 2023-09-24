@@ -10,7 +10,7 @@ class SplashScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Future.delayed(const Duration(seconds: 1), () {
-      context.go('auth');
+      context.go('/auth');
       print("Splace Change");
     });
     return Center(

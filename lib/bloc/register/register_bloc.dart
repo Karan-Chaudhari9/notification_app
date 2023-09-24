@@ -6,7 +6,7 @@ import 'package:equatable/equatable.dart';
 
 import 'dart:developer' as dev;
 
-import '../../common/validators.dart';
+import '../../config/validators.dart';
 import '../../repository/auth_reposository.dart';
 
 part 'register_event.dart';

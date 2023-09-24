@@ -4,18 +4,9 @@ import 'package:notification_app/screens/signup_screen.dart';
 
 import '../bloc/auth/auth_bloc.dart';
 import '../bloc/log_in/log_in_bloc.dart';
-
+import 'dart:developer' as dev;
 class LogInScreen extends StatefulWidget {
   const LogInScreen({Key? key}) : super(key: key);
-
-  static const routeName = 'login';
-
-  static Route route() {
-    return MaterialPageRoute(
-      settings: const RouteSettings(name: routeName),
-      builder: (_) => const LogInScreen(),
-    );
-  }
 
   @override
   State<LogInScreen> createState() => _LogInScreenState();
@@ -30,6 +21,7 @@ class _LogInScreenState extends State<LogInScreen> {
 
   @override
   void initState() {
+    dev.log("Login enter");
     _logInBloc = BlocProvider.of<LogInBloc>(context);
     emailController.addListener(_onEmailChanged);
     passwordController.addListener(_onPasswordChanged);
@@ -39,30 +31,6 @@ class _LogInScreenState extends State<LogInScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        title: Padding(
-          padding: const EdgeInsets.symmetric(
-            horizontal: 20,
-          ),
-          child: Container(
-            alignment: Alignment.center,
-            color: Colors.black,
-            padding: const EdgeInsets.symmetric(
-              horizontal: 50,
-              vertical: 10,
-            ),
-            child: Text(
-              'Log In',
-              style: Theme.of(context)
-                  .textTheme
-                  .displayMedium!
-                  .copyWith(color: Colors.white),
-            ),
-          ),
-        ),
-      ),
       body: BlocListener<LogInBloc, LogInState>(
         bloc: BlocProvider.of<LogInBloc>(context),
         listener: (context, state) {
@@ -143,7 +111,8 @@ class _LogInScreenState extends State<LogInScreen> {
                               const SizedBox(
                                 height: 30.0,
                               ),
-                              const TextField(
+                               TextFormField(
+                                 controller: emailController,
                                 decoration: InputDecoration(
                                   border: OutlineInputBorder(),
                                   labelText: 'Email',
@@ -152,7 +121,8 @@ class _LogInScreenState extends State<LogInScreen> {
                               const SizedBox(
                                 height: 10,
                               ),
-                              const TextField(
+                              TextFormField(
+                                controller: passwordController,
                                 obscureText: true,
                                 decoration: InputDecoration(
                                   border: OutlineInputBorder(),
@@ -177,7 +147,7 @@ class _LogInScreenState extends State<LogInScreen> {
                                 child: MaterialButton(
                                   minWidth: double.infinity,
                                   height: 60,
-                                  onPressed: () {},
+                                  onPressed: _onFormSubmitted,
                                   color: Colors.redAccent,
                                   shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(40)),
