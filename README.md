@@ -1,16 +1,22 @@
-# notification_app
-
-A new Flutter project.
-
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+### home
+    All components at homescreen
+### splash
+- [x] login
+- [ ] register
+### HomeScreen
+- [ ] Slider
+- [ ] Live -> [Screen]
+- [ ] Upcomming -> [Screen]
+- [ ] Recomended -> [Screen]
+### Tiket
+- [ ] list of Entery pass of events
+### Registered Events
+- [ ] list of events joined by user
+### MyProfile
+- [ ] Name,email,phone, department,achivements[optional]
+### Notifaction
+- [ ] Events notifactions
+### Event Create
+- [ ] Event create Screen
+### Register Event
+- [ ] Registration Event for user
