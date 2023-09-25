@@ -1,8 +1,6 @@
 import 'package:card_swiper/card_swiper.dart';
 import 'package:flutter/material.dart';
 
-import 'create_event_screen.dart';
-
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
@@ -312,7 +310,6 @@ _buildDrawer() {
 }
 
 Widget _buildRow(IconData icon, String title) {
-  const TextStyle tStyle = TextStyle(color: Colors.black, fontSize: 16.0);
   return InkWell(
     onTap: () {},
     child: SizedBox(
