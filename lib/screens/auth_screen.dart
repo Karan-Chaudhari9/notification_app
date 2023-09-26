@@ -43,7 +43,7 @@ class _AuthScreenState extends State<AuthScreen> {
       },
       child: const Scaffold(
         body: Center(
-          child: Text("Hello"),
+          child: Text("Something went wrong restart your app"),
         ),
       ),
     );

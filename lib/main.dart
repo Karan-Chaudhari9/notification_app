@@ -2,12 +2,14 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:notification_app/bloc/register/register_bloc.dart';
+import 'package:notification_app/config/route.dart';
 import 'package:notification_app/firebase_options.dart';
 import 'package:notification_app/repository/auth_reposository.dart';
 import 'package:notification_app/screens/auth_screen.dart';
 import 'package:notification_app/screens/home_screen.dart';
 import 'package:notification_app/screens/login_screen.dart';
-import 'package:notification_app/screens/signup_screen.dart';
+import 'package:notification_app/screens/register_screen.dart';
 import 'package:notification_app/screens/splash_screen.dart';
 
 import 'bloc/auth/auth_bloc.dart';
@@ -20,20 +22,6 @@ void main() async {
   );
   runApp(const MyApp());
 }
-
-final GoRouter _router = GoRouter(
-  initialLocation: '/splash',
-  debugLogDiagnostics: true,
-      routes: <RouteBase>[
-        GoRoute(path: '/base', builder: (context, state) => MyApp()),
-        GoRoute(path: '/home', builder: (context, state) => HomeScreen()),
-        GoRoute(path: '/splash', builder: (context, state) => SplashScreen()),
-        GoRoute(path: '/auth', builder: (context, state) => AuthScreen()),
-        GoRoute(path: '/login',builder: (context, state) => LogInScreen()),
-        GoRoute(path: '/register',builder: (context, state) => RegisterScreenView()),
-        GoRoute(path: '/newEvent',builder: (context, state) => Text("")),
-      ],
-);
 
 class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -49,18 +37,19 @@ class _MyAppState extends State<MyApp> {
       providers: [
         BlocProvider(
           create: (context) =>
-          AuthBloc(authRepository: AuthRepository())
-            ..add(AppStarted()),
+              AuthBloc(authRepository: AuthRepository())..add(AppStarted()),
         ),
         BlocProvider(
           create: (context) => LogInBloc(authRepository: AuthRepository()),
         ),
+        BlocProvider(
+          create: (context) => RegisterBloc(authRepository: AuthRepository()),
+        )
       ],
       child: MaterialApp.router(
-          title: 'Event Management App',
-          theme: ThemeData(useMaterial3: true,brightness: Brightness.light),
-
-          routerConfig: _router,
+        title: 'Event Management App',
+        theme: ThemeData(useMaterial3: true, brightness: Brightness.light),
+        routerConfig: AppRouter.router,
       ),
     );
   }
