@@ -7,7 +7,6 @@ import 'package:notification_app/screens/login_screen.dart';
 
 import '../bloc/auth/auth_bloc.dart';
 
-
 class AuthScreen extends StatefulWidget {
   const AuthScreen({Key? key}) : super(key: key);
 
@@ -41,11 +40,7 @@ class _AuthScreenState extends State<AuthScreen> {
           dev.log('Unknown state', name: 'AuthState');
         }
       },
-      child: const Scaffold(
-        body: Center(
-          child: Text("Hello"),
-        ),
-      ),
+      child: const Scaffold(),
     );
   }
 }

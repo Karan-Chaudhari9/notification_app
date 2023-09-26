@@ -1,14 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-void main() {
-  runApp(const MaterialApp(
-    home: Scaffold(
-      body: EventDetailsScreen(),
-    ),
-  ));
-}
-
 class EventDetailsScreen extends StatefulWidget {
   const EventDetailsScreen({super.key});
 

@@ -24,15 +24,17 @@ void main() async {
 final GoRouter _router = GoRouter(
   initialLocation: '/splash',
   debugLogDiagnostics: true,
-      routes: <RouteBase>[
-        GoRoute(path: '/base', builder: (context, state) => MyApp()),
-        GoRoute(path: '/home', builder: (context, state) => HomeScreen()),
-        GoRoute(path: '/splash', builder: (context, state) => SplashScreen()),
-        GoRoute(path: '/auth', builder: (context, state) => AuthScreen()),
-        GoRoute(path: '/login',builder: (context, state) => LogInScreen()),
-        GoRoute(path: '/register',builder: (context, state) => RegisterScreenView()),
-        GoRoute(path: '/newEvent',builder: (context, state) => Text("")),
-      ],
+  routes: <RouteBase>[
+    GoRoute(path: '/base', builder: (context, state) => const MyApp()),
+    GoRoute(path: '/home', builder: (context, state) => const HomeScreen()),
+    GoRoute(path: '/splash', builder: (context, state) => const SplashScreen()),
+    GoRoute(path: '/auth', builder: (context, state) => const AuthScreen()),
+    GoRoute(path: '/login', builder: (context, state) => const LogInScreen()),
+    GoRoute(
+        path: '/register',
+        builder: (context, state) => const RegisterScreenView()),
+    GoRoute(path: '/newEvent', builder: (context, state) => const Text("")),
+  ],
 );
 
 class MyApp extends StatefulWidget {
@@ -49,18 +51,16 @@ class _MyAppState extends State<MyApp> {
       providers: [
         BlocProvider(
           create: (context) =>
-          AuthBloc(authRepository: AuthRepository())
-            ..add(AppStarted()),
+              AuthBloc(authRepository: AuthRepository())..add(AppStarted()),
         ),
         BlocProvider(
           create: (context) => LogInBloc(authRepository: AuthRepository()),
         ),
       ],
       child: MaterialApp.router(
-          title: 'Event Management App',
-          theme: ThemeData(useMaterial3: true,brightness: Brightness.light),
-
-          routerConfig: _router,
+        title: 'Event Management App',
+        theme: ThemeData(useMaterial3: true, brightness: Brightness.light),
+        routerConfig: _router,
       ),
     );
   }

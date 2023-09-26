@@ -1,14 +1,13 @@
+import 'dart:developer' as dev;
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:go_router/go_router.dart';
-import 'package:notification_app/config/validators.dart';
-import 'package:notification_app/screens/signup_screen.dart';
 
 import '../bloc/auth/auth_bloc.dart';
 import '../bloc/log_in/log_in_bloc.dart';
-import 'dart:developer' as dev;
 
 class LogInScreen extends StatefulWidget {
   const LogInScreen({Key? key}) : super(key: key);
@@ -146,11 +145,11 @@ class _LogInScreenState extends State<LogInScreen> {
                                   labelText: 'Password',
                                 ),
                               ),
-                               Align(
+                              Align(
                                 alignment: Alignment.centerRight,
                                 child: TextButton(
-                                  child: Text('Forgot your Password?'),
-                                  onPressed: (){
+                                  child: const Text('Forgot your Password?'),
+                                  onPressed: () {
                                     pwdChange();
                                   },
                                 ),
@@ -169,10 +168,9 @@ class _LogInScreenState extends State<LogInScreen> {
                                   child: const Text(
                                     "Log in",
                                     style: TextStyle(
-                                      fontWeight: FontWeight.w600,
-                                      fontSize: 16,
-                                      color: Colors.white
-                                    ),
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: 16,
+                                        color: Colors.white),
                                   ),
                                 ),
                               )
@@ -250,12 +248,11 @@ class _LogInScreenState extends State<LogInScreen> {
             TextButton(
               child: const Text('Reset'),
               onPressed: () {
-                try{
-                  FirebaseAuth.instance.sendPasswordResetEmail(email: emailchangeController.text);
-                }catch(e){
-                  Fluttertoast.showToast(
-                    msg: e.toString()
-                  );
+                try {
+                  FirebaseAuth.instance.sendPasswordResetEmail(
+                      email: emailchangeController.text);
+                } catch (e) {
+                  Fluttertoast.showToast(msg: e.toString());
                 }
               },
             ),

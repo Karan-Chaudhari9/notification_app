@@ -1,20 +1,26 @@
 import 'dart:async';
-import 'dart:developer' as dev;
 
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:lottie/lottie.dart';
 
 class SplashScreen extends StatelessWidget {
   const SplashScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    Future.delayed(const Duration(seconds: 1), () {
+    Future.delayed(const Duration(seconds: 4), () {
       context.go('/auth');
-      print("Splace Change");
     });
-    return Center(
-      child: FlutterLogo(),
+    return Scaffold(
+      body: Center(
+        child: Lottie.asset(
+          'assets/lottie_animation/Starting.json',
+          height: 150,
+          width: 250,
+          fit: BoxFit.cover,
+        ),
+      ),
     );
   }
 }
