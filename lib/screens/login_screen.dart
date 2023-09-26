@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:go_router/go_router.dart';
+import 'package:notification_app/config/validators.dart';
 
 import '../bloc/auth/auth_bloc.dart';
 import '../bloc/log_in/log_in_bloc.dart';
@@ -155,22 +156,17 @@ class _LogInScreenState extends State<LogInScreen> {
                                 ),
                               ),
                               const SizedBox(height: 10.0),
-                              SizedBox(
-                                height: 53,
-                                width: 120,
-                                child: MaterialButton(
-                                  minWidth: double.infinity,
-                                  height: 60,
+                              Container(
+                                width: 200,
+                                height: 50,
+                                child: ElevatedButton(
                                   onPressed: _onFormSubmitted,
-                                  color: Colors.blueAccent,
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(40)),
                                   child: const Text(
                                     "Log in",
                                     style: TextStyle(
-                                        fontWeight: FontWeight.w600,
-                                        fontSize: 16,
-                                        color: Colors.white),
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: 16,
+                                    ),
                                   ),
                                 ),
                               )
@@ -217,8 +213,32 @@ class _LogInScreenState extends State<LogInScreen> {
   }
 
   void _onFormSubmitted() {
-    _logInBloc.add(LogInWithCredentialsPressed(
-        email: emailController.text, password: passwordController.text));
+    if (!Validators.isValidEmail(emailController.text)) {
+      showSeekError("Enter valid email");
+    } else if (emailController.text.isEmpty &&
+        passwordController.text.isEmpty) {
+      showSeekError("Password can't be emplat");
+    } else if (passwordController.text.length < 6) {
+      showSeekError("password lenth miminus 6 character");
+    } else {
+      _logInBloc.add(LogInWithCredentialsPressed(
+          email: emailController.text, password: passwordController.text));
+    }
+  }
+
+  void showSeekError(String error) {
+    ScaffoldMessenger.of(context)
+      ..hideCurrentSnackBar()
+      ..showSnackBar(
+        SnackBar(
+          content: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(error),
+            ],
+          ),
+        ),
+      );
   }
 
   void _onGooglePressed() {

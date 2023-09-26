@@ -1,8 +1,9 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
-
+import 'package:firebase_auth/firebase_auth.dart';
 
 import 'dart:developer' as dev;
 
@@ -10,6 +11,7 @@ import '../../config/validators.dart';
 import '../../repository/auth_reposository.dart';
 
 part 'register_event.dart';
+
 part 'register_state.dart';
 
 class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
@@ -28,16 +30,35 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
   }
 
   void _onPasswordChanged(PasswordChanged event, Emitter<RegisterState> emit) {
-    emit(state.update(isPasswordValid: Validators.isValidPassword(event.password)));
+    emit(state.update(
+        isPasswordValid: Validators.isValidPassword(event.password)));
   }
 
-  Future<void> _onSubmitted(Submitted event, Emitter<RegisterState> emit) async {
+  Future<void> _onSubmitted(Submitted event,
+      Emitter<RegisterState> emit) async {
     emit(RegisterState.loading());
+      // here you write the codes to input the data into firestore
+
     try {
       dev.log('Signing up from repository', name: 'Register');
-      await _authRepository.signUp(email: event.email, password: event.password);
+      await _authRepository.signUp(
+          email: event.email, password: event.password);
+      final FirebaseAuth auth = FirebaseAuth.instance;
+      final User? user = auth.currentUser;
+      await FirebaseFirestore.instance
+          .collection("users")
+          .doc(event.email)
+          .set({
+        "name": event.name,
+        "email": event.email,
+        "department": "",
+        "enrollment": "",
+        "uid": user?.uid.toString(),
+        "avtar":user?.photoURL
+      });
+
       emit(RegisterState.success());
-    }catch(_) {
+    } catch (_) {
       emit(RegisterState.failure());
     }
   }

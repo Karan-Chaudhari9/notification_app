@@ -40,7 +40,11 @@ class _AuthScreenState extends State<AuthScreen> {
           dev.log('Unknown state', name: 'AuthState');
         }
       },
-      child: const Scaffold(),
+      child: const Scaffold(
+        body: Center(
+          child: Text("Something went wrong restart your app"),
+        ),
+      ),
     );
   }
 }

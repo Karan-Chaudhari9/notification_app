@@ -1,14 +1,10 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
+import 'package:notification_app/bloc/register/register_bloc.dart';
+import 'package:notification_app/config/route.dart';
 import 'package:notification_app/firebase_options.dart';
 import 'package:notification_app/repository/auth_reposository.dart';
-import 'package:notification_app/screens/auth_screen.dart';
-import 'package:notification_app/screens/home_screen.dart';
-import 'package:notification_app/screens/login_screen.dart';
-import 'package:notification_app/screens/signup_screen.dart';
-import 'package:notification_app/screens/splash_screen.dart';
 
 import 'bloc/auth/auth_bloc.dart';
 import 'bloc/log_in/log_in_bloc.dart';
@@ -20,22 +16,6 @@ void main() async {
   );
   runApp(const MyApp());
 }
-
-final GoRouter _router = GoRouter(
-  initialLocation: '/splash',
-  debugLogDiagnostics: true,
-  routes: <RouteBase>[
-    GoRoute(path: '/base', builder: (context, state) => const MyApp()),
-    GoRoute(path: '/home', builder: (context, state) => const HomeScreen()),
-    GoRoute(path: '/splash', builder: (context, state) => const SplashScreen()),
-    GoRoute(path: '/auth', builder: (context, state) => const AuthScreen()),
-    GoRoute(path: '/login', builder: (context, state) => const LogInScreen()),
-    GoRoute(
-        path: '/register',
-        builder: (context, state) => const RegisterScreenView()),
-    GoRoute(path: '/newEvent', builder: (context, state) => const Text("")),
-  ],
-);
 
 class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -56,11 +36,14 @@ class _MyAppState extends State<MyApp> {
         BlocProvider(
           create: (context) => LogInBloc(authRepository: AuthRepository()),
         ),
+        BlocProvider(
+          create: (context) => RegisterBloc(authRepository: AuthRepository()),
+        )
       ],
       child: MaterialApp.router(
         title: 'Event Management App',
         theme: ThemeData(useMaterial3: true, brightness: Brightness.light),
-        routerConfig: _router,
+        routerConfig: AppRouter.router,
       ),
     );
   }

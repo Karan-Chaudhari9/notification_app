@@ -41,7 +41,7 @@ class LogInBloc extends Bloc<LogInEvent, LogInState> {
       emit(LogInState.success());
     } on FirebaseAuthException catch (e) {
       emit(LogInState.failure(error: "error"));
-      dev.log(e.code, name: "FirebaseAuthException");
+      dev.log(e.message.toString(), name: "FirebaseAuthException");
     } catch (e) {
       dev.log(e.toString(), name: "Firebase Cathch");
     }

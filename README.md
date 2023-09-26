@@ -2,7 +2,7 @@
     All components at homescreen
 ### splash
 - [x] login
-- [ ] register
+- [x] register
 ### HomeScreen
 - [ ] Slider
 - [ ] Live -> [Screen]
