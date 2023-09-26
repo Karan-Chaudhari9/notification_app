@@ -1,16 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-void main() {
-  runApp(
-    const MaterialApp(
-      home: Scaffold(
-        body: CreateEvent(),
-      ),
-    ),
-  );
-}
-
 class CreateEvent extends StatefulWidget {
   const CreateEvent({super.key});
 
