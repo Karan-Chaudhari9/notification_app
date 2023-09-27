@@ -1,10 +1,12 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:notification_app/bloc/event/event_bloc.dart';
 import 'package:notification_app/bloc/register/register_bloc.dart';
 import 'package:notification_app/config/route.dart';
 import 'package:notification_app/firebase_options.dart';
 import 'package:notification_app/repository/auth_reposository.dart';
+import 'package:notification_app/repository/event_repository.dart';
 
 import 'bloc/auth/auth_bloc.dart';
 import 'bloc/log_in/log_in_bloc.dart';
@@ -38,6 +40,10 @@ class _MyAppState extends State<MyApp> {
         ),
         BlocProvider(
           create: (context) => RegisterBloc(authRepository: AuthRepository()),
+        ),
+        BlocProvider(
+          create: (context) =>
+              EventBloc(eventRepository: EventRepository())..add(LoadEvents()),
         )
       ],
       child: MaterialApp.router(
