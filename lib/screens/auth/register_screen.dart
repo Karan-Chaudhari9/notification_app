@@ -119,7 +119,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           labelText: 'Full name',
                           border: OutlineInputBorder()),
                     ),
-                    SizedBox(height: 10),
+                    const SizedBox(height: 10),
                     TextFormField(
                       cursorColor: Colors.black,
                       controller: emailController,
@@ -128,7 +128,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           labelText: 'Email',
                           border: OutlineInputBorder()),
                     ),
-                    SizedBox(height: 10),
+                    const SizedBox(height: 10),
                     TextFormField(
                       cursorColor: Colors.black,
                       controller: passwordController,
@@ -139,7 +139,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       obscureText: true,
                       autocorrect: false,
                     ),
-                    SizedBox(height: 10),
+                    const SizedBox(height: 10),
                     TextFormField(
                       cursorColor: Colors.black,
                       controller: confirmPasswordController,
@@ -153,7 +153,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     const SizedBox(
                       height: 20,
                     ),
-                    Container(
+                    SizedBox(
                       width: 200,
                       height: 50,
                       child: ElevatedButton(
