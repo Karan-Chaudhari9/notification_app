@@ -14,7 +14,7 @@ class EventManager {
           eventList.add(result.data());
         }
       });
-      print(object)
+      print(eventList);
       return eventList;
     } catch (e) {
       print("$e===================");

@@ -31,7 +31,8 @@ class _HomeLayoutState extends State<HomeLayout> {
                     return const Text("something went wrong");
                   }
                   if (snapshot.connectionState == ConnectionState.done) {
-                    swiper = snapshot.data as List;
+                    swiper = snapshot.data;
+                    print(snapshot.data);
                     return SwiperView(context, swiper);
                   }
                   return const CircularProgressIndicator();
@@ -140,7 +141,7 @@ Widget LiveEventView(BuildContext context, List events) {
                       Padding(
                         padding: const EdgeInsets.only(left: 10, top: 10),
                         child: Text(
-                          events[index]['eventName'],
+                          events[index]['eventTitle'],
                           style: const TextStyle(fontSize: 15.0),
                         ),
                       ),
