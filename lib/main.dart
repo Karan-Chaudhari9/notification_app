@@ -43,7 +43,7 @@ class _MyAppState extends State<MyApp> {
         ),
         BlocProvider(
           create: (context) =>
-              EventBloc(eventRepository: EventRepository())..add(LoadEvents()),
+              ProductBloc(productRepository: ProductRepository())..add(LoadProducts()),
         )
       ],
       child: MaterialApp.router(

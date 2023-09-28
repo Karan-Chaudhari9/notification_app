@@ -1,21 +1,21 @@
 part of 'event_bloc.dart';
 
-abstract class EventEvent extends Equatable {
-  const EventEvent();
+abstract class ProductEvent extends Equatable {
+  const ProductEvent();
 
   @override
   List<Object?> get props => [];
 }
 
-class LoadEvents extends EventEvent {
+class LoadProducts extends ProductEvent {
 
 }
 
-class UpdateEvents extends EventEvent {
-  UpdateEvents({this.Events = const <Event>[]});
+class UpdateProducts extends ProductEvent {
+  UpdateProducts({this.products = const <Event>[]});
 
-  final List<Event> Events;
+  final List<Event> products;
 
   @override
-  List<Object?> get props => [Events];
+  List<Object?> get props => [products];
 }

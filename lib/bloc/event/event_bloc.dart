@@ -1,30 +1,32 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
-import 'package:notification_app/model/event_details_model.dart';
-import 'package:notification_app/repository/event_repository.dart';
 import 'package:equatable/equatable.dart';
+import 'package:notification_app/model/event_details_model.dart';
 
-part 'event_state.dart';
+import '../../repository/event_repository.dart';
+
+
 part 'event_event.dart';
+part 'event_state.dart';
 
-class EventBloc extends Bloc<EventEvent, EventState> {
-  EventBloc({required EventRepository eventRepository}) : _EventRepository = eventRepository, super(EventLoading()) {
-    on<LoadEvents>(_onLoadEvents);
-    on<UpdateEvents>(_onUpdateEvents);
+class ProductBloc extends Bloc<ProductEvent, ProductState> {
+  ProductBloc({required ProductRepository productRepository}) : _productRepository = productRepository, super(ProductLoading()) {
+    on<LoadProducts>(_onLoadProducts);
+    on<UpdateProducts>(_onUpdateProducts);
   }
 
-  final EventRepository _EventRepository;
-  StreamSubscription? _EventSubscription;
+  final ProductRepository _productRepository;
+  StreamSubscription? _productSubscription;
 
-  void _onLoadEvents(LoadEvents event, Emitter<EventState> emit) {
-    _EventSubscription?.cancel();
-    _EventSubscription = _EventRepository.getAllEvents().listen((Events) {
-      add(UpdateEvents(Events: Events));
+  void _onLoadProducts(LoadProducts event, Emitter<ProductState> emit) {
+    _productSubscription?.cancel();
+    _productSubscription = _productRepository.getAllEvents().listen((products) {
+      add(UpdateProducts(products: products));
     });
   }
 
-  void _onUpdateEvents(UpdateEvents event, Emitter<EventState> emit) {
-    emit(EventLoaded(Events: event.Events));
+  void _onUpdateProducts(UpdateProducts event, Emitter<ProductState> emit) {
+    emit(ProductLoaded(products: event.products));
   }
 }

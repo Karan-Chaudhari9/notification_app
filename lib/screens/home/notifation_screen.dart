@@ -21,7 +21,6 @@ class _NotifactionViewState extends State<NotifactionView> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: true,
-
     );
   }
 }

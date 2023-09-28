@@ -3,9 +3,9 @@ import 'dart:developer' as dev;
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:notification_app/screens/auth/login_screen.dart';
 
-import '../../bloc/auth/auth_bloc.dart';
+import '../../../bloc/auth/auth_bloc.dart';
+import 'login_screen.dart';
 
 class AuthScreen extends StatefulWidget {
   const AuthScreen({Key? key}) : super(key: key);

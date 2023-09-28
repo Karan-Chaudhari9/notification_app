@@ -1,19 +1,19 @@
 part of 'event_bloc.dart';
 
-abstract class EventState extends Equatable {
-  const EventState();
+abstract class ProductState extends Equatable {
+  const ProductState();
 }
 
-class EventLoading extends EventState {
+class ProductLoading extends ProductState {
   @override
   List<Object> get props => [];
 }
 
-class EventLoaded extends EventState {
-  EventLoaded({this.Events = const <Event>[]});
+class ProductLoaded extends ProductState {
+  ProductLoaded({this.products = const <Event>[]});
 
-  final List<Event> Events;
+  final List<Event> products;
 
   @override
-  List<Object?> get props => [Events];
+  List<Object?> get props => [products];
 }

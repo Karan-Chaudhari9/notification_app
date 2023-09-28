@@ -5,17 +5,17 @@ import 'dart:developer' as developer;
 
 import 'base_event_repository.dart';
 
-class EventRepository extends BaseEventRepository {
+class ProductRepository extends BaseProductRepository {
 
-  EventRepository({FirebaseFirestore? firestore}) : _firestore = firestore ?? FirebaseFirestore.instance;
+  ProductRepository({FirebaseFirestore? firestore}) : _firestore = firestore ?? FirebaseFirestore.instance;
 
   final FirebaseFirestore _firestore;
 
   @override
   Stream<List<Event>> getAllEvents() {
-    developer.log('Getting Events from firestore...', name: 'EventState');
-    return _firestore.collection('Events').snapshots().map((snapshot) {
-      developer.log('Got Event: ${snapshot.toString()}', name: 'EventState');
+    developer.log('Getting products from firestore...', name: 'ProductState');
+    return _firestore.collection('events').snapshots().map((snapshot) {
+      developer.log('Got product: ${snapshot.toString()}', name: 'ProductState');
       return snapshot.docs.map((doc) => Event.fromSnpashot(doc)).toList();
     });
   }
