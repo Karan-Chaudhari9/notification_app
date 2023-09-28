@@ -2,10 +2,10 @@
 import 'package:go_router/go_router.dart';
 
 import '../main.dart';
-import '../screens/auth_screen.dart';
-import '../screens/home_screen.dart';
-import '../screens/login_screen.dart';
-import '../screens/register_screen.dart';
+import '../screens/auth/auth_screen.dart';
+import '../screens/home/home_screen.dart';
+import '../screens/auth/login_screen.dart';
+import '../screens/auth/register_screen.dart';
 import '../screens/splash_screen.dart';
 
 class AppRouter{

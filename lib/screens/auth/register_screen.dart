@@ -3,9 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:notification_app/config/validators.dart';
 
-import '../bloc/auth/auth_bloc.dart';
-import '../bloc/register/register_bloc.dart';
-import '../repository/auth_reposository.dart';
+import '../../bloc/auth/auth_bloc.dart';
+import '../../bloc/register/register_bloc.dart';
+import '../../repository/auth_reposository.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({Key? key}) : super(key: key);
