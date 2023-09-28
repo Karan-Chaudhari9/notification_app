@@ -7,8 +7,8 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:go_router/go_router.dart';
 import 'package:notification_app/config/validators.dart';
 
-import '../bloc/auth/auth_bloc.dart';
-import '../bloc/log_in/log_in_bloc.dart';
+import '../../bloc/auth/auth_bloc.dart';
+import '../../bloc/log_in/log_in_bloc.dart';
 
 class LogInScreen extends StatefulWidget {
   const LogInScreen({Key? key}) : super(key: key);
