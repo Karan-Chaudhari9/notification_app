@@ -1,46 +1,94 @@
 import 'package:card_swiper/card_swiper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:notification_app/bloc/event/event_bloc.dart';
+import 'package:notification_app/manager/swiper_manager.dart';
 
+import '../../manager/event_manager.dart';
 
-class HomeScreenLayout extends StatefulWidget {
-  const HomeScreenLayout({super.key});
+class HomeLayout extends StatefulWidget {
+  const HomeLayout({super.key});
 
   @override
-  State<HomeScreenLayout> createState() => _HomeScreenLayoutState();
+  State<HomeLayout> createState() => _HomeLayoutState();
 }
 
-class _HomeScreenLayoutState extends State<HomeScreenLayout> {
-  late EventBloc _eventBloc;
+class _HomeLayoutState extends State<HomeLayout> {
+  List events = [];
+  List swiper = [];
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      scrollDirection: Axis.vertical,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          const SizedBox(height: 30),
+    return Scaffold(
+      body: SingleChildScrollView(
+        scrollDirection: Axis.vertical,
+        child: Column(children: [
           SizedBox(
             height: 175,
-            child: SwiperView(context),
+            child: FutureBuilder(
+                future: SwiperManager().getSwiper(),
+                builder: (context, snapshot) {
+                  if (snapshot.hasError) {
+                    return const Text("something went wrong");
+                  }
+                  if (snapshot.connectionState == ConnectionState.done) {
+                    swiper = snapshot.data as List;
+                    return SwiperView(context, swiper);
+                  }
+                  return const CircularProgressIndicator();
+                }),
           ),
-          const SizedBox(height: 25),
-          LiveEventView(context),
-          PopulerEventView(context),
-          RecommendedEventView(context)
-        ],
+          FutureBuilder(
+              future: EventManager().getData(),
+              builder: (context, snapshot) {
+                if (snapshot.hasError) {
+                  return const Text(
+                    "Something went wrong",
+                  );
+                }
+                if (snapshot.connectionState == ConnectionState.done) {
+                  events = snapshot.data as List;
+                  print(events);
+                  return LiveEventView(context, events);
+                }
+                return const Center(child: CircularProgressIndicator());
+              }),
+          // FutureBuilder(future: , builder:)
+        ]),
       ),
     );
   }
 }
 
+Widget SwiperView(BuildContext context, List swipers) {
+  return Swiper(
+    viewportFraction: 0.8,
+    scale: 0.9,
+    itemCount: swipers.length,
+    autoplay: true,
+    itemBuilder: (context, index) => Stack(
+      children: [
+        Container(
+          decoration: BoxDecoration(
+            color: Colors.lightBlueAccent,
+            borderRadius: BorderRadius.circular(10.0),
+          ),
+        ),
+        Container(
+          alignment: Alignment.center,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(10.0),
+            color: Colors.blueAccent.withOpacity(0.5),
+            image: DecorationImage(
+              image: NetworkImage(swipers[index]['bannerUrl']),
+            ),
+          ),
+        ),
+      ],
+    ),
+  );
+}
 
-
-
-
-Widget LiveEventView(BuildContext context) {
+Widget LiveEventView(BuildContext context, List events) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     mainAxisAlignment: MainAxisAlignment.start,
@@ -84,7 +132,7 @@ Widget LiveEventView(BuildContext context) {
                             topRight: Radius.circular(8.5),
                           ),
                           image: DecorationImage(
-                            image: AssetImage(events[index].imageUrl!),
+                            image: NetworkImage(events[index]['bannerUrl']),
                             fit: BoxFit.fill,
                           ),
                         ),
@@ -92,8 +140,8 @@ Widget LiveEventView(BuildContext context) {
                       Padding(
                         padding: const EdgeInsets.only(left: 10, top: 10),
                         child: Text(
-                          events[index].eventName!,
-                          style: const TextStyle(fontSize: 16.0),
+                          events[index]['eventName'],
+                          style: const TextStyle(fontSize: 15.0),
                         ),
                       ),
                     ],
@@ -124,7 +172,7 @@ Widget LiveEventView(BuildContext context) {
   );
 }
 
-Widget PopulerEventView(BuildContext context) {
+Widget PopulerEventView(BuildContext context, List events) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     mainAxisAlignment: MainAxisAlignment.start,
@@ -208,7 +256,7 @@ Widget PopulerEventView(BuildContext context) {
   );
 }
 
-Widget RecommendedEventView(BuildContext context) {
+Widget RecommendedEventView(BuildContext context, List events) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     mainAxisAlignment: MainAxisAlignment.start,

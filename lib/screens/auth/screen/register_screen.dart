@@ -89,85 +89,88 @@ class _RegisterScreenState extends State<RegisterScreen> {
           child: BlocBuilder<RegisterBloc, RegisterState>(
             bloc: _registerBloc,
             builder: (context, state) {
-              return Padding(
-                padding: const EdgeInsets.all(20.0),
-                child: Column(
-                  children: [
-                    SizedBox(
-                      width: 100,
-                      height: 150,
-                      child: Image.asset('assets/images/Atmiya_Logo.png'),
-                    ),
-                    const Text(
-                      'नमस्कारः',
-                      style:
-                          TextStyle(fontWeight: FontWeight.w700, fontSize: 32),
-                    ),
-                    const Text(
-                      'Sign in your account',
-                      style: TextStyle(
-                        fontWeight: FontWeight.w700,
-                        fontSize: 28,
+              return SingleChildScrollView(
+                scrollDirection: Axis.vertical,
+                child: Padding(
+                  padding: const EdgeInsets.all(20.0),
+                  child: Column(
+                    children: [
+                      SizedBox(
+                        width: 100,
+                        height: 150,
+                        child: Image.asset('assets/images/Atmiya_Logo.png'),
                       ),
-                    ),
-                    const SizedBox(height: 30.0),
-                    TextFormField(
-                      cursorColor: Colors.black,
-                      controller: nameController,
-                      decoration: const InputDecoration(
-                          prefixIcon: Icon(Icons.person),
-                          labelText: 'Full name',
-                          border: OutlineInputBorder()),
-                    ),
-                    SizedBox(height: 10),
-                    TextFormField(
-                      cursorColor: Colors.black,
-                      controller: emailController,
-                      decoration: const InputDecoration(
-                          prefixIcon: Icon(Icons.email),
-                          labelText: 'Email',
-                          border: OutlineInputBorder()),
-                    ),
-                    SizedBox(height: 10),
-                    TextFormField(
-                      cursorColor: Colors.black,
-                      controller: passwordController,
-                      decoration: const InputDecoration(
-                          prefixIcon: Icon(Icons.lock),
-                          labelText: 'Password',
-                          border: OutlineInputBorder()),
-                      obscureText: true,
-                      autocorrect: false,
-                    ),
-                    SizedBox(height: 10),
-                    TextFormField(
-                      cursorColor: Colors.black,
-                      controller: confirmPasswordController,
-                      decoration: const InputDecoration(
-                          prefixIcon: Icon(Icons.lock),
-                          labelText: 'Confirm Password',
-                          border: OutlineInputBorder()),
-                      obscureText: true,
-                      autocorrect: false,
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    Container(
-                      width: 200,
-                      height: 50,
-                      child: ElevatedButton(
-                        onPressed: _onFormSubmitted,
-                        child: const Text(
-                          "Register",
-                          style: TextStyle(
-                            fontWeight: FontWeight.w600,
-                            fontSize: 16,
-                          ),
+                      const Text(
+                        'नमस्कारः',
+                        style:
+                            TextStyle(fontWeight: FontWeight.w700, fontSize: 32),
+                      ),
+                      const Text(
+                        'Sign in your account',
+                        style: TextStyle(
+                          fontWeight: FontWeight.w700,
+                          fontSize: 28,
                         ),
                       ),
-                    )
-                  ],
+                      const SizedBox(height: 30.0),
+                      TextFormField(
+                        cursorColor: Colors.black,
+                        controller: nameController,
+                        decoration: const InputDecoration(
+                            prefixIcon: Icon(Icons.person),
+                            labelText: 'Full name',
+                            border: OutlineInputBorder()),
+                      ),
+                      SizedBox(height: 10),
+                      TextFormField(
+                        cursorColor: Colors.black,
+                        controller: emailController,
+                        decoration: const InputDecoration(
+                            prefixIcon: Icon(Icons.email),
+                            labelText: 'Email',
+                            border: OutlineInputBorder()),
+                      ),
+                      SizedBox(height: 10),
+                      TextFormField(
+                        cursorColor: Colors.black,
+                        controller: passwordController,
+                        decoration: const InputDecoration(
+                            prefixIcon: Icon(Icons.lock),
+                            labelText: 'Password',
+                            border: OutlineInputBorder()),
+                        obscureText: true,
+                        autocorrect: false,
+                      ),
+                      SizedBox(height: 10),
+                      TextFormField(
+                        cursorColor: Colors.black,
+                        controller: confirmPasswordController,
+                        decoration: const InputDecoration(
+                            prefixIcon: Icon(Icons.lock),
+                            labelText: 'Confirm Password',
+                            border: OutlineInputBorder()),
+                        obscureText: true,
+                        autocorrect: false,
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      Container(
+                        width: 200,
+                        height: 50,
+                        child: ElevatedButton(
+                          onPressed: _onFormSubmitted,
+                          child: const Text(
+                            "Register",
+                            style: TextStyle(
+                              fontWeight: FontWeight.w600,
+                              fontSize: 16,
+                            ),
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
                 ),
               );
             },

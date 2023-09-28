@@ -1,26 +1,25 @@
 import 'package:flutter/material.dart';
 
-class NotifactionScreen extends StatelessWidget {
-  const NotifactionScreen({super.key});
+class NotifactionLayout extends StatefulWidget {
+  const NotifactionLayout({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return NotifactionView();
-  }
+  State<NotifactionLayout> createState() => _NotifactionLayoutState();
 }
 
-class NotifactionView extends StatefulWidget {
-  const NotifactionView({super.key});
-
-  @override
-  State<NotifactionView> createState() => _NotifactionViewState();
-}
-
-class _NotifactionViewState extends State<NotifactionView> {
+class _NotifactionLayoutState extends State<NotifactionLayout> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: true,
+      body: SingleChildScrollView(
+        scrollDirection: Axis.vertical,
+        child: ListView.builder(
+          scrollDirection: Axis.vertical,
+          itemCount: 10,
+          itemBuilder: (context, index) => Text("ff"),
+        ),
+      ),
     );
   }
 }
