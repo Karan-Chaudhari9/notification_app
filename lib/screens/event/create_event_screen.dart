@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 void main() {
-  runApp(const CreateEvent());
+  runApp(CreateEvent());
 }
 
 class CreateEvent extends StatefulWidget {
@@ -50,7 +50,7 @@ class _CreateEventState extends State<CreateEvent> {
               'Event Title',
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.w400),
             ),
-            const SizedBox(height: 5),
+            SizedBox(height: 5),
             TextFormField(
               decoration: const InputDecoration(
                   hintText: "e.g. Tech Event", border: OutlineInputBorder()),
@@ -97,7 +97,7 @@ class _CreateEventState extends State<CreateEvent> {
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Text('Past Event'),
+                      Text('Past Event'),
                       Container(
                         height: 170,
                         width: 250,
