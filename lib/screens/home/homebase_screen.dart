@@ -1,7 +1,5 @@
 // ignore_for_file: prefer_const_constructors, non_constant_identifier_names
 
-import 'dart:ffi';
-
 import 'package:card_swiper/card_swiper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -269,8 +267,8 @@ Widget LiveEventView(BuildContext context) {
                       child: MaterialButton(
                         shape: RoundedRectangleBorder(
                             side: BorderSide(color: Colors.black45),
-                            borderRadius: BorderRadius.all(Radius.circular(20))
-                        ),
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(20))),
                         onPressed: () {},
                         child: const Text("Join"),
                       ),
@@ -353,8 +351,8 @@ Widget PopulerEventView(BuildContext context) {
                       child: MaterialButton(
                         shape: RoundedRectangleBorder(
                             side: BorderSide(color: Colors.black45),
-                            borderRadius: BorderRadius.all(Radius.circular(20))
-                        ),
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(20))),
                         onPressed: () {},
                         child: const Text("Join"),
                       ),
@@ -437,8 +435,8 @@ Widget RecommendedEventView(BuildContext context) {
                       child: MaterialButton(
                         shape: RoundedRectangleBorder(
                             side: BorderSide(color: Colors.black45),
-                            borderRadius: BorderRadius.all(Radius.circular(20))
-                        ),
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(20))),
                         onPressed: () {},
                         child: const Text("Join"),
                       ),
