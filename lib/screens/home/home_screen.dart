@@ -43,17 +43,15 @@ class _HomeLayoutState extends State<HomeLayout> {
               future: EventManager().getLatestData(),
               builder: (context, snapshot) {
                 if (snapshot.hasError) {
-                  return const Text(
-                    "Something went wrong",
-                  );
+                  return const Text("Something went wrong...");
                 }
                 if (snapshot.connectionState == ConnectionState.done) {
                   events = snapshot.data as List;
                   return LatestEventView(context, events);
                 }
                 return const Padding(
-                  padding:  EdgeInsets.all(18.0),
-                  child:  Center(child: CircularProgressIndicator()),
+                  padding: EdgeInsets.all(18.0),
+                  child: Center(child: CircularProgressIndicator()),
                 );
               }),
           FutureBuilder(
@@ -69,8 +67,8 @@ class _HomeLayoutState extends State<HomeLayout> {
                   return PopulerEventView(context, events);
                 }
                 return const Padding(
-                  padding:  EdgeInsets.all(28.0),
-                  child:  Center(child: CircularProgressIndicator()),
+                  padding: EdgeInsets.all(28.0),
+                  child: Center(child: CircularProgressIndicator()),
                 );
               }),
 
@@ -88,16 +86,19 @@ Widget SwiperView(BuildContext context, List swipers) {
     itemCount: swipers.length,
     autoplay: true,
     itemBuilder: (context, index) => Stack(
+      alignment: Alignment.center,
       children: [
         Container(
           decoration: BoxDecoration(
-            color: Colors.lightBlueAccent,
+            border: Border.all(color: Colors.black12),
+            color: Colors.white,
             borderRadius: BorderRadius.circular(10.0),
           ),
         ),
         CachedNetworkImage(
           imageUrl: swipers[index]['bannerUrl'],
-          placeholder: (context, url) => Image.asset('assets/images/Atmiya_Logo.png'),
+          placeholder: (context, url) =>
+              Image.asset('assets/images/Atmiya_Logo.png'),
         )
       ],
     ),
@@ -125,9 +126,11 @@ Widget LatestEventView(BuildContext context, List events) {
           itemCount: events.length,
           itemBuilder: (BuildContext context, index) {
             return InkWell(
-              onTap: (){
+              onTap: () {
                 String docId = events[index]['docId'] ?? "doc";
-                context.push('/eventView',extra: docId);
+                print("=============");
+                print(docId);
+                context.push('/eventView', extra: docId);
               },
               child: Container(
                 margin: const EdgeInsets.symmetric(horizontal: 10.0),
@@ -153,7 +156,7 @@ Widget LatestEventView(BuildContext context, List events) {
                               topRight: Radius.circular(8.5),
                             ),
                             image: DecorationImage(
-                              image: NetworkImage(events[index]['bannerUrl']),
+                              image: NetworkImage(events[index]['bannerUrl'],),
                               fit: BoxFit.fill,
                             ),
                           ),
@@ -161,7 +164,7 @@ Widget LatestEventView(BuildContext context, List events) {
                         Padding(
                           padding: const EdgeInsets.only(left: 10, top: 10),
                           child: Text(
-                            events[index]['eventTitle'],
+                            events[index]['eventTitle'] ?? "",
                             style: const TextStyle(fontSize: 15.0),
                           ),
                         ),
