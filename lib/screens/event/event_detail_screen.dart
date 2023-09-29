@@ -35,8 +35,9 @@ class _EventDetailsScreenState extends State<EventDetailsScreen> {
             int year = dateTime.year;
             int month = dateTime.month;
             int day = dateTime.day;
-            Map<String,dynamic> participent = {};
-            participent = data['eventParticipent'];
+            Map<String,dynamic> participent = {
+
+            };
             bool isRegistered = participent.containsKey(FirebaseAuth.instance.currentUser?.uid);
             return Scaffold(
               appBar: AppBar(

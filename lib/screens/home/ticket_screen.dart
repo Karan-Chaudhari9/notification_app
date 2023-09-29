@@ -20,27 +20,30 @@ class _TicketLayoutState extends State<TicketLayout> {
           return Text("Error occurs");
         }
         if (snapshot.connectionState == ConnectionState.done) {
-          print(snapshot.data as List);
-          List data = snapshot.data as List;
+          List ticket = snapshot.data as List;
           return Scaffold(
             body: ListView.builder(
-              itemCount: data.length,
+              itemCount: ticket.length,
               itemBuilder: (context, index) {
                 return FutureBuilder(
-                    future: EventManager().getEventDetails(data[index]['eventId']),
+                    future: EventManager().getEventDetails(ticket[index]['eventId']),
                     builder:(context,snapshot) {
-                      print(snapshot.data);
+                      if(snapshot.connectionState == ConnectionState.done){
                       return Container(
                         margin: EdgeInsets.all(8),
                         decoration: BoxDecoration(
                             border: Border.all(color: Colors.black26)
                         ),
                         child: ListTile(
-                          leading: Icon(Icons.notifications),
+                          leading: Icon(Icons.event),
                           title: Text(snapshot.data['eventTitle']),
-                          subtitle: Text("12/12/2023 10:00 AM"),
+                          subtitle: Text("09/12/2023 10:00 AM to 12:00 AM"),
+                          onTap: (){
+
+                          },
                         ),
-                      );
+                      );}
+                      return Center(child: CircularProgressIndicator());
                     }
                 );
               },

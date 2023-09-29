@@ -45,7 +45,7 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
       final User? user = auth.currentUser;
       await FirebaseFirestore.instance
           .collection("users")
-          .doc(event.email)
+          .doc(user?.uid)
           .set({
         "name": event.name,
         "email": event.email,

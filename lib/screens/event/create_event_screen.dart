@@ -109,8 +109,10 @@ class _CreateEventState extends State<CreateEvent> {
               'Event Details',
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.w400),
             ),
+            const SizedBox(height: 10),
             const TextField(
               decoration: InputDecoration(
+                border: OutlineInputBorder(),
                 hintText: "Event Description",
               ),
               maxLength: 300,
@@ -121,14 +123,36 @@ class _CreateEventState extends State<CreateEvent> {
               'Select Department',
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.w400),
             ),
-            DropdownButton(
-                value: selectedValue,
-                onChanged: (String? newValue) {
-                  setState(() {
-                    selectedValue = newValue!;
-                  });
-                },
-                items: dropdownItems),
+            DropdownButtonFormField(
+              decoration: InputDecoration(
+                  focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                    width: 2,
+                    color: Colors.lightBlueAccent,
+                  )),
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(9),
+                      borderSide: BorderSide(
+                        width: 2,
+                      ))),
+              hint: Text("Select Department"),
+              borderRadius: BorderRadius.circular(15),
+              items: <String>[
+                'FOS',
+                'FOBC',
+                'FOET',
+                'FOHS',
+                'FOHSS',
+                'FOTE',
+                'OTHER'
+              ].map<DropdownMenuItem<String>>((String value) {
+                return DropdownMenuItem<String>(
+                  value: value,
+                  child: Text(value),
+                );
+              }).toList(),
+              onChanged: (String? value) {},
+            ),
             const SizedBox(height: 12.0),
             const Text(
               'Start Date & Time',

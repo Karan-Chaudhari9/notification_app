@@ -9,6 +9,13 @@ class EventManager {
   final CollectionReference userReference =
       FirebaseFirestore.instance.collection("users");
 
+  Future getUserData(String docid)async{
+
+    var user = userReference.doc(docid).get() as List;
+    print(user);
+    return user;
+  }
+
   Future getLatestData() async {
     List ids = [];
     try {
@@ -26,11 +33,24 @@ class EventManager {
       });
       return eventList;
     } catch (e) {
-      print("$e===================");
       return e;
     }
   }
 
+  Future getAllData() async {
+    try {
+      await eventReference
+          .get()
+          .then((querySnapshot) {
+        for (var result in querySnapshot.docs) {
+          eventList.add(result.data());
+        }
+      });
+      return eventList;
+    } catch (e) {
+      return e;
+    }
+  }
   Future getPopulerData() async {
     try {
       await eventReference
@@ -39,14 +59,11 @@ class EventManager {
           .get()
           .then((querySnapshot) {
         for (var result in querySnapshot.docs) {
-          print(result.data());
           eventList.add(result.data());
         }
       });
-      print(eventList);
       return eventList;
     } catch (e) {
-      print("$e===================");
       return e;
     }
   }
@@ -55,7 +72,6 @@ class EventManager {
     List data = [];
     var event =
         await eventReference.doc(docid).get();
-    print(event.data());
     return event.data();
   }
 
@@ -83,9 +99,9 @@ class EventManager {
           .collection('ticket')
           .doc(eventId)
           .set(eventData);
-      await eventReference.doc(eventId).set({
-        "eventParticipent": {uid: false},
-      }, SetOptions(merge: true));
+      await eventReference.doc(eventId).collection('attendence').add({
+        "uid":uid
+      });
     } catch (e) {}
   }
 }

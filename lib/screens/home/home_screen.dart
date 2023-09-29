@@ -128,8 +128,6 @@ Widget LatestEventView(BuildContext context, List events) {
             return InkWell(
               onTap: () {
                 String docId = events[index]['docId'] ?? "doc";
-                print("=============");
-                print(docId);
                 context.push('/eventView', extra: docId);
               },
               child: Container(
@@ -156,7 +154,7 @@ Widget LatestEventView(BuildContext context, List events) {
                               topRight: Radius.circular(8.5),
                             ),
                             image: DecorationImage(
-                              image: NetworkImage(events[index]['bannerUrl'],),
+                              image: NetworkImage(events[index]['bannerUrl'] ?? "",),
                               fit: BoxFit.fill,
                             ),
                           ),
@@ -164,7 +162,7 @@ Widget LatestEventView(BuildContext context, List events) {
                         Padding(
                           padding: const EdgeInsets.only(left: 10, top: 10),
                           child: Text(
-                            events[index]['eventTitle'] ?? "",
+                            events[index]['eventTitle'] ?? '',
                             style: const TextStyle(fontSize: 15.0),
                           ),
                         ),
