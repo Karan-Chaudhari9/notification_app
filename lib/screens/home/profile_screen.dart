@@ -1,22 +1,15 @@
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(const MaterialApp(
+    home: Scaffold(
+      body: ProfileScreen(),
+    ),
+  ));
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: ProfilePage(),
-    );
-  }
-}
-
-class ProfilePage extends StatelessWidget {
-  const ProfilePage({super.key});
+class ProfileScreen extends StatelessWidget {
+  const ProfileScreen({super.key});
 
   void _showSecondPage(BuildContext context) {
     Navigator.of(context).push(MaterialPageRoute(builder: (ctx) {
@@ -31,8 +24,13 @@ class ProfilePage extends StatelessWidget {
     }));
   }
 
-  Widget _buildListItem(String title, {VoidCallback? onTap}) {
+  Widget _buildListItem(
+    String title,
+    IconData? iconData, {
+    VoidCallback? onTap,
+  }) {
     return ListTile(
+      leading: iconData != null ? Icon(iconData) : null,
       title: Text(title),
       onTap: onTap,
     );
@@ -41,25 +39,6 @@ class ProfilePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text(
-          'Profile',
-          style: TextStyle(color: Colors.black, fontSize: 22),
-        ),
-        centerTitle: true,
-        elevation: 0,
-        backgroundColor: Colors.white,
-        leading: IconButton(
-          onPressed: () {
-            Navigator.pop(context);
-          },
-          icon: const Icon(
-            Icons.arrow_back_ios,
-            size: 20,
-            color: Colors.black,
-          ),
-        ),
-      ),
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -95,9 +74,9 @@ class ProfilePage extends StatelessWidget {
             ),
             Column(
               children: [
-                _buildListItem('Register History'),
-                _buildListItem('Notification'),
-                _buildListItem('Department'),
+                _buildListItem('Register History', Icons.history),
+                _buildListItem('Notification', Icons.notifications),
+                _buildListItem('Department', Icons.maps_home_work),
               ],
             ),
             const Padding(
@@ -113,13 +92,10 @@ class ProfilePage extends StatelessWidget {
             ),
             Column(
               children: [
-                _buildListItem('Popular Events'),
-                _buildListItem('Live Events'),
-                _buildListItem('Recommended Events'),
-                _buildListItem('Create Event'),
+                _buildListItem('Create Event', Icons.add),
+                _buildListItem('Wishlist Events', Icons.bookmark_add_outlined),
               ],
             ),
-            _buildListItem('Liked Events'),
             const Padding(
               padding: EdgeInsets.only(left: 8, top: 20.0),
               child: Text(
@@ -131,9 +107,9 @@ class ProfilePage extends StatelessWidget {
                 ),
               ),
             ),
-            _buildListItem('About Us'),
-            _buildListItem('Send Us Feedback'),
-            _buildListItem('Need Help?'),
+            _buildListItem('About Us', Icons.account_circle),
+            _buildListItem('Send Us Feedback', Icons.cloud_upload),
+            _buildListItem('Need Help?', Icons.help_center_outlined),
             const Padding(
               padding: EdgeInsets.only(left: 8, top: 20.0),
               child: Text(
@@ -145,7 +121,7 @@ class ProfilePage extends StatelessWidget {
                 ),
               ),
             ),
-            _buildListItem('Logout'),
+            _buildListItem('Logout', Icons.logout),
           ],
         ),
       ),

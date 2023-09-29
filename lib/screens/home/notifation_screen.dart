@@ -17,7 +17,7 @@ class _NotifactionLayoutState extends State<NotifactionLayout> {
         child: ListView.builder(
           scrollDirection: Axis.vertical,
           itemCount: 10,
-          itemBuilder: (context, index) => Text("ff"),
+          itemBuilder: (context, index) => ListTile(),
         ),
       ),
     );

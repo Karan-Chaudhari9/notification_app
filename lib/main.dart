@@ -8,6 +8,7 @@ import 'package:notification_app/repository/auth_repository.dart';
 
 import 'bloc/auth/auth_bloc.dart';
 import 'bloc/log_in/log_in_bloc.dart';
+import 'manager/create_event_manager.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -25,6 +26,8 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  final EventBloc eventBloc = EventBloc();
+
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
@@ -39,6 +42,10 @@ class _MyAppState extends State<MyApp> {
         BlocProvider(
           create: (context) => RegisterBloc(authRepository: AuthRepository()),
         ),
+        BlocProvider<EventBloc>(
+          create: (context) =>
+              EventBloc(), // You should replace EventBloc with your actual BLoC class
+        )
       ],
       child: MaterialApp.router(
         showSemanticsDebugger: false,

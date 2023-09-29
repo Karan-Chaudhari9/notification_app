@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors, non_constant_identifier_names
 
 import 'package:flutter/material.dart';
+import 'package:notification_app/screens/event/create_event_screen.dart';
 import 'package:notification_app/screens/home/home_screen.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -34,6 +35,14 @@ class _HomePageViewState extends State<HomePageView> {
       appBar: AppBar(
         title: const Text("Atmiya Events"),
         centerTitle: false,
+        actions: [
+          IconButton(
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => CreateEvent()));
+              },
+              icon: Icon(Icons.add))
+        ],
       ),
       body: views[selectedPageIndex],
       bottomNavigationBar: NavigationBar(
