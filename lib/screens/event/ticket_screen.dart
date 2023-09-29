@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 
 class TicketScreen extends StatelessWidget {
-  const TicketScreen({super.key});
+  final String uid;
+  final String docid;
+  const TicketScreen({super.key, required this.uid,required this.docid});
 
   @override
   Widget build(BuildContext context) {

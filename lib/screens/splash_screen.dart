@@ -18,6 +18,7 @@ class SplashScreen extends StatelessWidget {
           'assets/lottie_animation/Starting.json',
           height: 150,
           width: 250,
+          frameRate: FrameRate(60),
           fit: BoxFit.cover,
         ),
       ),

@@ -5,6 +5,7 @@ import 'package:notification_app/bloc/register/register_bloc.dart';
 import 'package:notification_app/config/route.dart';
 import 'package:notification_app/firebase_options.dart';
 import 'package:notification_app/repository/auth_repository.dart';
+import 'package:notification_app/manager/event_manager.dart';
 
 import 'bloc/auth/auth_bloc.dart';
 import 'bloc/log_in/log_in_bloc.dart';
