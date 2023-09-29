@@ -31,6 +31,20 @@ class EventManager {
     }
   }
 
+  Future getAllData() async {
+    try {
+      await eventReference
+          .get()
+          .then((querySnapshot) {
+        for (var result in querySnapshot.docs) {
+          eventList.add(result.data());
+        }
+      });
+      return eventList;
+    } catch (e) {
+      return e;
+    }
+  }
   Future getPopulerData() async {
     try {
       await eventReference
@@ -39,11 +53,9 @@ class EventManager {
           .get()
           .then((querySnapshot) {
         for (var result in querySnapshot.docs) {
-          print(result.data());
           eventList.add(result.data());
         }
       });
-      print(eventList);
       return eventList;
     } catch (e) {
       print("$e===================");

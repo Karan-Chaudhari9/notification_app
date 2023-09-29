@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:notification_app/manager/event_manager.dart';
 import 'package:notification_app/manager/ticket_manager.dart';
+import 'package:shimmer/shimmer.dart';
 
 class NotifactionLayout extends StatefulWidget {
   const NotifactionLayout({super.key});
@@ -19,7 +20,6 @@ class _NotifactionLayoutState extends State<NotifactionLayout> {
           return const Text("Error occurs");
         }
         if (snapshot.connectionState == ConnectionState.done) {
-          print(snapshot.data as List);
           List data = snapshot.data as List;
           return Scaffold(
             body: ListView.builder(
@@ -29,15 +29,27 @@ class _NotifactionLayoutState extends State<NotifactionLayout> {
                     future:
                         EventManager().getEventDetails(data[index]['eventId']),
                     builder: (context, snapshot) {
-                      print(snapshot.data);
-                      return Container(
-                        margin: EdgeInsets.all(8),
-                        decoration: BoxDecoration(
-                            border: Border.all(color: Colors.black26)),
-                        child: ListTile(
-                          leading: Icon(Icons.notifications),
-                          title: Text(snapshot.data['eventTitle']),
-                          subtitle: Text("12/12/2023 10:00 AM"),
+                      if (snapshot.connectionState == ConnectionState.done) {
+                        return Container(
+                          margin: EdgeInsets.all(8),
+                          decoration: BoxDecoration(
+                              border: Border.all(color: Colors.black26)),
+                          child: ListTile(
+                            leading: Icon(Icons.notifications),
+                            title: Text(snapshot.data['eventTitle']),
+                            subtitle: Text("12/12/2023 10:00 AM"),
+                          ),
+                        );
+                      }
+                      return Center(
+                        child: SizedBox(
+                          width: 200.0,
+                          height :70.0,
+                          child: Shimmer.fromColors(
+                            baseColor: Colors.white10,
+                            highlightColor: Colors.white54,
+                            child: Container(color: Colors.black),
+                          ),
                         ),
                       );
                     });

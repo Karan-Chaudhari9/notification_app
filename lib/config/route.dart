@@ -1,4 +1,6 @@
 import 'package:go_router/go_router.dart';
+import 'package:notification_app/admin/manager/event/event_manager.dart';
+import 'package:notification_app/screens/event/create_event_screen.dart';
 import 'package:notification_app/screens/event/event_detail_screen.dart';
 
 import '../main.dart';
@@ -18,9 +20,11 @@ class AppRouter {
       GoRoute(path: '/auth', builder: (context, state) => AuthScreen()),
       GoRoute(path: '/login', builder: (context, state) => LogInScreen()),
       GoRoute(path: '/register', builder: (context, state) => RegisterScreen()),
+      GoRoute(path: '/adminEvent', builder: (context, state) => AdminEvenManage()),
+      GoRoute(path: '/adminCreateEvent', builder: (context, state) => CreateEvent()),
       GoRoute(path: '/eventView', builder: (context, state) {
         String docid = state.extra as String;
-        return EventDetailsScreen(docId: docid,);
+        return EventDetailsScreen(docId: docid);
       }),
 
     ],
