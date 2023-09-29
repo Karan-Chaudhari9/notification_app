@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:card_swiper/card_swiper.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -94,16 +95,10 @@ Widget SwiperView(BuildContext context, List swipers) {
             borderRadius: BorderRadius.circular(10.0),
           ),
         ),
-        Container(
-          alignment: Alignment.center,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10.0),
-            color: Colors.blueAccent.withOpacity(0.5),
-            image: DecorationImage(
-              image: NetworkImage(swipers[index]['bannerUrl']),
-            ),
-          ),
-        ),
+        CachedNetworkImage(
+          imageUrl: swipers[index]['bannerUrl'],
+          placeholder: (context, url) => Image.asset('assets/images/Atmiya_Logo.png'),
+        )
       ],
     ),
   );

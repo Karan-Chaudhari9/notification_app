@@ -3,6 +3,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:notification_app/screens/home/home_screen.dart';
+import 'package:notification_app/screens/home/notifation_screen.dart';
+import 'package:notification_app/screens/home/profile_screen.dart';
 import 'package:notification_app/screens/home/ticket_screen.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -26,8 +28,9 @@ class _HomePageViewState extends State<HomePageView> {
   int selectedPageIndex = 0;
   List<Widget> views = [
     HomeLayout(),
-    Text(""),
-    TicketLayout()
+    NotifactionLayout(),
+    TicketLayout(),
+    ProfileScreen()
   ];
 
   @override

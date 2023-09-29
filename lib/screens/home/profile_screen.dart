@@ -26,25 +26,6 @@ class ProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text(
-          'Profile',
-          style: TextStyle(color: Colors.black, fontSize: 22),
-        ),
-        centerTitle: true,
-        elevation: 0,
-        backgroundColor: Colors.white,
-        leading: IconButton(
-          onPressed: () {
-            Navigator.pop(context);
-          },
-          icon: const Icon(
-            Icons.arrow_back_ios,
-            size: 20,
-            color: Colors.black,
-          ),
-        ),
-      ),
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -81,8 +62,8 @@ class ProfileScreen extends StatelessWidget {
             Column(
               children: [
                 _buildListItem('Register History'),
-                _buildListItem('Notification'),
-                _buildListItem('Department'),
+                // _buildListItem('Notification'),
+                // _buildListItem('Department'),
               ],
             ),
             const Padding(
@@ -98,13 +79,10 @@ class ProfileScreen extends StatelessWidget {
             ),
             Column(
               children: [
-                _buildListItem('Popular Events'),
-                _buildListItem('Live Events'),
-                _buildListItem('Recommended Events'),
                 _buildListItem('Create Event'),
               ],
             ),
-            _buildListItem('Liked Events'),
+            _buildListItem('Wishlist events'),
             const Padding(
               padding: EdgeInsets.only(left: 8, top: 20.0),
               child: Text(

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
 import 'package:notification_app/manager/event_manager.dart';
 import 'package:notification_app/manager/ticket_manager.dart';
 
@@ -25,10 +26,22 @@ class _TicketLayoutState extends State<TicketLayout> {
             body: ListView.builder(
               itemCount: data.length,
               itemBuilder: (context, index) {
-                // List eventInfo = TicketManager().getTickets();
-                return ListTile(
-                  title: Text(data[index]['eventId']),
-                  subtitle: Text(""),
+                return FutureBuilder(
+                    future: EventManager().getEventDetails(data[index]['eventId']),
+                    builder:(context,snapshot) {
+                      print(snapshot.data);
+                      return Container(
+                        margin: EdgeInsets.all(8),
+                        decoration: BoxDecoration(
+                            border: Border.all(color: Colors.black26)
+                        ),
+                        child: ListTile(
+                          leading: Icon(Icons.notifications),
+                          title: Text(snapshot.data['eventTitle']),
+                          subtitle: Text("12/12/2023 10:00 AM"),
+                        ),
+                      );
+                    }
                 );
               },
             ),
