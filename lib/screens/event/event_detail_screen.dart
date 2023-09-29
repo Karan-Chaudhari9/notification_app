@@ -25,7 +25,7 @@ class _EventDetailsScreenState extends State<EventDetailsScreen> {
         future: EventManager().getEventDetails(widget.docId),
         builder: (context, snapshot) {
           if (snapshot.hasError) {
-            return const Center(child: Text("Error occured"));
+            return const Center(child: Text("Error occure"));
           } else if (snapshot.connectionState == ConnectionState.done) {
             data = snapshot.data; // Replace with your millisecond value
             DateTime dateTime =
