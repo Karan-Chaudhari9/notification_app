@@ -7,6 +7,7 @@ import '../../../bloc/auth/auth_bloc.dart';
 import '../../../bloc/register/register_bloc.dart';
 import '../../../repository/auth_repository.dart';
 
+
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({Key? key}) : super(key: key);
 

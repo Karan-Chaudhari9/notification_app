@@ -1,13 +1,5 @@
 import 'package:flutter/material.dart';
 
-void main() {
-  runApp(const MaterialApp(
-    home: Scaffold(
-      body: ProfileScreen(),
-    ),
-  ));
-}
-
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
 
@@ -24,15 +16,12 @@ class ProfileScreen extends StatelessWidget {
     }));
   }
 
-  Widget _buildListItem(
-    String title,
-    IconData? iconData, {
-    VoidCallback? onTap,
-  }) {
+  Widget _buildListItem(String title, IconData? iconData,
+      {VoidCallback? onTap}) {
     return ListTile(
-      leading: iconData != null ? Icon(iconData) : null,
       title: Text(title),
       onTap: onTap,
+      leading: iconData != null ? Icon(iconData) : null,
     );
   }
 
@@ -75,8 +64,8 @@ class ProfileScreen extends StatelessWidget {
             Column(
               children: [
                 _buildListItem('Register History', Icons.history),
-                _buildListItem('Notification', Icons.notifications),
-                _buildListItem('Department', Icons.maps_home_work),
+                // _buildListItem('Notification'),
+                // _buildListItem('Department'),
               ],
             ),
             const Padding(
@@ -93,9 +82,9 @@ class ProfileScreen extends StatelessWidget {
             Column(
               children: [
                 _buildListItem('Create Event', Icons.add),
-                _buildListItem('Wishlist Events', Icons.bookmark_add_outlined),
               ],
             ),
+            _buildListItem('Wishlist Events', Icons.bookmark_add_outlined),
             const Padding(
               padding: EdgeInsets.only(left: 8, top: 20.0),
               child: Text(

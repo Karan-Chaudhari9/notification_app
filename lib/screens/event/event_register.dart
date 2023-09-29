@@ -1,345 +1,174 @@
 import 'package:flutter/material.dart';
+import 'package:notification_app/config/validators.dart';
+import 'package:notification_app/manager/event_manager.dart';
+import 'package:notification_app/screens/event/ticket_screen.dart';
 
-void main() => runApp(EventRegistration());
-
-class EventRegistration extends StatefulWidget {
-  const EventRegistration();
+class EventRegisterScreen extends StatefulWidget {
+  final String docId;
+  const EventRegisterScreen({Key? key,required this.docId}) : super(key: key);
 
   @override
-  State<EventRegistration> createState() => _EventRegistration();
+  State<EventRegisterScreen> createState() => _EventRegisterScreenState();
 }
 
-class _EventRegistration extends State<EventRegistration> {
-  final _formKey = GlobalKey<FormState>();
-  AutovalidateMode _autovalidate = AutovalidateMode.disabled;
-  String? firstName;
-  String? lastName;
-  String? enrollmentNo;
-  String? emailAddress;
-  String? mobileNo;
-  String? departmentValue;
+class _EventRegisterScreenState extends State<EventRegisterScreen> {
+  final TextEditingController fullnameTextController = TextEditingController();
+  final TextEditingController enrollmentTextController = TextEditingController();
+  late String departmentTextController;
+  final TextEditingController phonenumberTextController = TextEditingController();
 
   @override
   void initState() {
-    firstName = null;
-    lastName = null;
-    enrollmentNo = null;
-    emailAddress = null;
-    mobileNo = null;
-    departmentValue = null;
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: ThemeData(useMaterial3: true),
-      home: Scaffold(
-          appBar: AppBar(
-            title: Text(
-              "Event Registration",
-              style: TextStyle(fontSize: 24),
-            ),
-          ),
-          body: SingleChildScrollView(
-            child: Form(
-              key: _formKey,
-              autovalidateMode: _autovalidate,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  SizedBox(
-                    height: 45,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 25, right: 25),
-                    child: Text(
-                      "Registration Form",
-                      style: TextStyle(
-                        fontSize: 26,
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    height: 25,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 25, right: 25),
-                    child: TextFormField(
-                      decoration: InputDecoration(
-                        labelText: "First Name",
-                        focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(9),
-                            borderSide: BorderSide(
-                              width: 2,
-                              color: Colors.lightBlueAccent,
-                            )),
-                        border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(9),
-                            borderSide: BorderSide(
-                              width: 2,
-                            )),
-                      ),
-                      validator: validateFastName,
-                      onSaved: (String? value) {
-                        firstName = value;
-                      },
-                    ),
-                  ),
-                  SizedBox(
-                    height: 15,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 25, right: 25),
-                    child: TextFormField(
-                      decoration: InputDecoration(
-                        labelText: "Last Name",
-                        focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(9),
-                            borderSide: BorderSide(
-                              width: 2,
-                              color: Colors.lightBlueAccent,
-                            )),
-                        border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(9),
-                            borderSide: BorderSide(
-                              width: 2,
-                            )),
-                      ),
-                      validator: validateLastName,
-                      onSaved: (String? value) {
-                        lastName = value;
-                      },
-                    ),
-                  ),
-                  SizedBox(
-                    height: 15,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 25, right: 25),
-                    child: TextFormField(
-                      keyboardType: TextInputType.number,
-                      decoration: InputDecoration(
-                        labelText: "Enrollment No",
-                        focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(9),
-                            borderSide: BorderSide(
-                              width: 2,
-                              color: Colors.lightBlueAccent,
-                            )),
-                        border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(9),
-                            borderSide: BorderSide(
-                              width: 2,
-                            )),
-                      ),
-                      validator: validateEnrollmentNo,
-                      onSaved: (String? value) {
-                        enrollmentNo = value;
-                      },
-                    ),
-                  ),
-                  SizedBox(
-                    height: 15,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 25, right: 25),
-                    child: DropdownButtonFormField(
-                      decoration: InputDecoration(
-                          focusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(9),
-                              borderSide: BorderSide(
-                                width: 2,
-                                color: Colors.lightBlueAccent,
-                              )),
-                          border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(9),
-                              borderSide: BorderSide(
-                                width: 2,
-                              ))),
-                      hint: Text("Select Department"),
-                      borderRadius: BorderRadius.circular(15),
-                      items: <String>[
-                        'FOS',
-                        'FOBC',
-                        'FOET',
-                        'FOHS',
-                        'FOHSS',
-                        'FOTE',
-                        'OTHER'
-                      ].map<DropdownMenuItem<String>>((String value) {
-                        return DropdownMenuItem<String>(
-                          value: value,
-                          child: Text(value),
-                        );
-                      }).toList(),
-                      validator: validateDepartmentDropdown,
-                      onChanged: (String? newValue) {
-                        departmentValue = newValue;
-                      },
-                    ),
-                  ),
-                  SizedBox(
-                    height: 15,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 25, right: 25),
-                    child: TextFormField(
-                      keyboardType: TextInputType.emailAddress,
-                      decoration: InputDecoration(
-                        labelText: "Email Address",
-                        focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(9),
-                            borderSide: BorderSide(
-                              width: 2,
-                              color: Colors.lightBlueAccent,
-                            )),
-                        border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(9),
-                            borderSide: BorderSide(
-                              width: 2,
-                            )),
-                      ),
-                      validator: validateEmailAddress,
-                      onSaved: (String? value) {
-                        emailAddress = value;
-                      },
-                    ),
-                  ),
-                  SizedBox(
-                    height: 15,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 25, right: 25),
-                    child: TextFormField(
-                      keyboardType: TextInputType.phone,
-                      decoration: InputDecoration(
-                        labelText: "Mobile No",
-                        focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(9),
-                            borderSide: BorderSide(
-                              width: 2,
-                              color: Colors.lightBlueAccent,
-                            )),
-                        border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(9),
-                            borderSide: BorderSide(
-                              width: 2,
-                            )),
-                      ),
-                      validator: validateMobileNo,
-                      onSaved: (String? value) {
-                        mobileNo = value;
-                      },
-                    ),
-                  ),
-                  SizedBox(
-                    height: 15,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 25, right: 25),
-                    child: ElevatedButton(
-                        onPressed: _validateInput,
-                        child: const Padding(
-                          padding:  EdgeInsets.only(top: 6, bottom: 6),
-                          child: Text(
-                            "Register",
-                            style: TextStyle(
-                              fontWeight: FontWeight.w400,
-                              fontSize: 16,
-                              color: Colors.black,
-                            ),
-                          ),
-                        )),
-                  )
-                ],
+    return SafeArea(
+      child: Scaffold(
+        resizeToAvoidBottomInset: true,
+        body: Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: Column(
+            children: [
+              const Text(
+                'Register to your event',
+                style: TextStyle(
+                  fontWeight: FontWeight.w700,
+                  fontSize: 28,
+                ),
               ),
-            ),
-          )),
+              const SizedBox(height: 30.0),
+              TextFormField(
+                controller: fullnameTextController,
+                cursorColor: Colors.black,
+                decoration: const InputDecoration(
+                    prefixIcon: Icon(Icons.person),
+                    labelText: 'Full name',
+                    border: OutlineInputBorder()),
+              ),
+              const SizedBox(height: 10),
+              TextFormField(
+                controller: enrollmentTextController,
+                cursorColor: Colors.black,
+                decoration: const InputDecoration(
+                    prefixIcon: Icon(Icons.email),
+                    labelText: 'Enrollment No',
+                    border: OutlineInputBorder()),
+              ),
+              const SizedBox(height: 10),
+              DropdownButtonFormField(
+                decoration: InputDecoration(
+                    prefixIcon: Icon(Icons.ad_units_sharp),
+                    focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(9),
+                        borderSide: BorderSide(
+                          width: 2,
+                          color: Colors.lightBlueAccent,
+                        )),
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(9),
+                        borderSide: BorderSide(
+                          width: 2,
+                        ))),
+                hint: Text("Select Department"),
+                borderRadius: BorderRadius.circular(15),
+                items: <String>[
+                  'FOS',
+                  'FOBC',
+                  'FOET',
+                  'FOHS',
+                  'FOHSS',
+                  'FOTE',
+                  'OTHER'
+                ].map<DropdownMenuItem<String>>((String value) {
+                  return DropdownMenuItem<String>(
+                    value: value,
+                    child: Text(value),
+                  );
+                }).toList(),
+                onChanged: (String? value) {
+                  departmentTextController = value.toString();
+                },
+              ),
+              const SizedBox(height: 10),
+              TextFormField(
+                controller: phonenumberTextController,
+                cursorColor: Colors.black,
+                decoration: const InputDecoration(
+                    prefixIcon: Icon(Icons.dialer_sip),
+                    labelText: 'Phone No',
+                    border: OutlineInputBorder()),
+                autocorrect: false,
+              ),
+              const SizedBox(height: 10),
+              SizedBox(
+                width: 200,
+                height: 50,
+                child: ElevatedButton(
+                  onPressed: _onFormSubmitted,
+                  child: const Text(
+                    "Register",
+                    style: TextStyle(
+                      fontWeight: FontWeight.w600,
+                      fontSize: 16,
+                    ),
+                  ),
+                ),
+              )
+            ],
+          ),
+        ),
+      ),
     );
   }
 
-  void _validateInput() {
-    if (_formKey.currentState!.validate()) {
-      _formKey.currentState!.save();
-      print(firstName! +
-          " " +
-          lastName! +
-          " " +
-          enrollmentNo! +
-          " " +
-          departmentValue! +
-          " " +
-          emailAddress! +
-          " " +
-          mobileNo!);
-    } else {
-      setState(() {
-        _autovalidate = AutovalidateMode.always;
-      }
+  void _onFormSubmitted() {
+    try {
+      if (fullnameTextController.text.isEmpty) {
+        showSeekError("Enter your name");
+      } else if (enrollmentTextController.text.isEmpty) {
+        showSeekError("Enter enrollment no");
+      } else if (departmentTextController == null ||
+          departmentTextController.isEmpty) {
+        showSeekError("Please select department");
+      } else if (phonenumberTextController.text.isEmpty) {
+        showSeekError("Enter phone no");
+      } else{
+        try {
+          EventManager().registerEvent(
+              fullnameTextController.text, enrollmentTextController.text,
+              departmentTextController, widget.docId,
+              phonenumberTextController.text);
+          TicketScreen(docid: widget.docId, uid: DateTime.now().millisecond.toString());
+        } catch(e){
+        }
+        }
+    } catch (e) {
+      showSeekError(e.toString());
+    }
+  }
+
+  void showSeekError(String error) {
+    ScaffoldMessenger.of(context)
+      ..hideCurrentSnackBar()
+      ..showSnackBar(
+        SnackBar(
+          content: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(error),
+            ],
+          ),
+        ),
       );
-    }
   }
 
-  String? validateFastName(String? value) {
-    if (value!.isEmpty || value == null) {
-      return 'Fast Name cannot be empty';
-    }
-    if (value.length < 3) {
-      return 'Fast Name must be more than 2 characters';
-    } else {
-      return null;
-    }
-  }
-
-  String? validateLastName(String? value) {
-    if (value!.isEmpty || value == null) {
-      return 'Last Name cannot be empty';
-    }
-    if (value.length < 3) {
-      return 'Last Name must be more than 2 characters';
-    } else {
-      return null;
-    }
-  }
-
-  String? validateEnrollmentNo(String? value) {
-    if (value!.isEmpty || value == null) {
-      return 'Enrollment No cannot be empty';
-    }
-    if (value.length != 9) {
-      return 'Enrollment No must be of 9 digit';
-    } else {
-      return null;
-    }
-  }
-
-  String? validateDepartmentDropdown(String? value) {
-    return value == null || value.isEmpty ? 'Please Choose Department' : null;
-  }
-
-  String? validateEmailAddress(String? value) {
-    String pattern =
-        r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
-    RegExp regex = RegExp(pattern);
-    if (value!.isEmpty || value == null) {
-      return 'Email Address cannot be empty';
-    }
-    if (!regex.hasMatch(value)) {
-      return 'Enter Valid Email Address';
-    } else {
-      return null;
-    }
-  }
-
-  String? validateMobileNo(String? value) {
-    if (value!.isEmpty || value == null) {
-      return 'Phone number cannot be empty';
-    }
-    if (value.length != 10) {
-      return 'Mobile Number must be of 10 digit';
-    } else {
-      return null;
-    }
+  @override
+  void dispose() {
+    fullnameTextController.dispose();
+    phonenumberTextController.dispose();
+    enrollmentTextController.dispose();
+    super.dispose();
   }
 }

@@ -14,7 +14,7 @@ class _EditPageState extends State<EditPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Center(child: Text("Edit Profile          ",
+        title: Center(child: Text("Edit Profile",
           style: TextStyle(color: Colors.black38, fontSize: 20),)),
         elevation: 0,
         backgroundColor: Colors.white,
