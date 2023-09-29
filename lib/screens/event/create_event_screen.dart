@@ -127,9 +127,9 @@ class _CreateEventState extends State<CreateEvent> {
               decoration: InputDecoration(
                   focusedBorder: OutlineInputBorder(
                       borderSide: BorderSide(
-                        width: 2,
-                        color: Colors.lightBlueAccent,
-                      )),
+                    width: 2,
+                    color: Colors.lightBlueAccent,
+                  )),
                   border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(9),
                       borderSide: BorderSide(
