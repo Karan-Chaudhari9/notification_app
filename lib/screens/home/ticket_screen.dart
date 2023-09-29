@@ -25,7 +25,7 @@ class _TicketLayoutState extends State<TicketLayout> {
             body: ListView.builder(
               itemCount: data.length,
               itemBuilder: (context, index) {
-                List eventInfo = TicketManager().getTickets();
+                // List eventInfo = TicketManager().getTickets();
                 return ListTile(
                   title: Text(data[index]['eventId']),
                   subtitle: Text(""),
