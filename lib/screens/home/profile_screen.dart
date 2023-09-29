@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:notification_app/screens/profile/need_help_screen.dart';
+import 'package:go_router/go_router.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
@@ -17,10 +19,10 @@ class ProfileScreen extends StatelessWidget {
   }
 
   Widget _buildListItem(String title, IconData? iconData,
-      {VoidCallback? onTap}) {
+      {VoidCallback? onPressed}) {
     return ListTile(
       title: Text(title),
-      onTap: onTap,
+      onTap: onPressed,
       leading: iconData != null ? Icon(iconData) : null,
     );
   }
@@ -97,8 +99,10 @@ class ProfileScreen extends StatelessWidget {
               ),
             ),
             _buildListItem('About Us', Icons.account_circle),
-            _buildListItem('Send Us Feedback', Icons.cloud_upload),
-            _buildListItem('Need Help?', Icons.help_center_outlined),
+            _buildListItem('Send Us Feedback', Icons.cloud_upload,),
+            _buildListItem('Need Help?', Icons.help_center_outlined, onPressed: () {
+              context.push('/needHelp');
+            }),
             const Padding(
               padding: EdgeInsets.only(left: 8, top: 20.0),
               child: Text(
