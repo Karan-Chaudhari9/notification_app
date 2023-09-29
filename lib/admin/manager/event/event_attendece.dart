@@ -16,9 +16,16 @@ class _EventAttedanceState extends State<EventAttedance> {
     return FutureBuilder(
       future: EventManager().getEventDetails(widget.docid),
       builder: (context, snapshot) {
-        List data = snapshot.data['eventParticipent'] as List;
+        Map<String,dynamic> data = snapshot.data['eventParticipent'] as Map<String,dynamic>;
         print(data);
-        return Placeholder();
+        return FutureBuilder(
+          future: EventManager().getUserData("docid"),
+          builder: (context, snapshot) {
+            Map<String,dynamic> data = snapshot.data['eventParticipent'] as Map<String,dynamic>;
+            print(data);
+            return Placeholder();
+          },
+        );
       },
     );
   }

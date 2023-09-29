@@ -35,7 +35,7 @@ class _AuthScreenState extends State<AuthScreen> {
           context.go('/login');
         } else if (state is Authenticated) {
           dev.log('Authenticated state in AuthScreen, Going home screen');
-          context.go("/adminEvent");
+          context.go("/home");
         } else {
           dev.log('Unknown state', name: 'AuthState');
         }

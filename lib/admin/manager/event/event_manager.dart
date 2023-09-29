@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:notification_app/admin/manager/event/event_attendece.dart';
 import 'package:notification_app/manager/event_manager.dart';
 
 void main() => AdminEvenManage();
@@ -66,6 +67,7 @@ class _AdminEvenManageState extends State<AdminEvenManage> {
                                           ),
                                           ElevatedButton(
                                             onPressed: () {
+                                              Navigator.push(context, MaterialPageRoute(builder: (context) => EventAttedance(docid: events[index]['docId']),));
                                             },
                                             child: const Text("Attendance"),
                                           ),
