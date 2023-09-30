@@ -21,10 +21,6 @@ class _AuthScreenState extends State<AuthScreen> {
       listener: (context, state) {
         if (state is Uninitialized) {
           context.go("/login");
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => const LogInScreen()),
-          );
           dev.log('Uninitialized State', name: 'AuthState');
         } else if (state is UnAuthenticated) {
           Navigator.push(
@@ -37,6 +33,7 @@ class _AuthScreenState extends State<AuthScreen> {
           dev.log('Authenticated state in AuthScreen, Going home screen');
           context.go("/home");
         } else {
+
           dev.log('Unknown state', name: 'AuthState');
         }
       },
